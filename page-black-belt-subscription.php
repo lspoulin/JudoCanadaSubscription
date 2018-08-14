@@ -1,4 +1,32 @@
-<?php get_header(); ?>
+<?php
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    echo "request is a post ";
+    $type = $_POST['type'];
+    echo "type is  " . $type;
+    switch ($type) {
+        case 'email':
+            sendEmail();
+            break;
+    }
+    exit();
+}
+
+function sendEmail(){
+    echo "send email please setup the smtp server";
+    $msg = "First line of text\nSecond line of text";
+    // use wordwrap() if lines are longer than 70 characters
+    $msg = wordwrap($msg,70);
+    // send email
+    /*ini_set('SMTP','myserver');
+    ini_set('smtp_port',25);
+    mail("lspoulin@gmail.com","My subject",$msg);
+     */
+}
+?>
+<?php get_header();
+
+?>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -9,10 +37,19 @@
     <script>
 
         var pages = ["idDivFormPersonalInformations", "idDivJudoCanadaInformation", "idDivCertification", "idDivGrade", "idDivTechnicalPoint", "idDivFinalPoint", "idDivIJFOnly", "idDivPayForm"];
-        
         var data = {};
         var index = 0;
-        
+
+        function sendMail(){
+            $.ajax({
+              type: "POST",
+              url: "<?php echo get_stylesheet_directory_uri().'/page-black-belt-subscription.php';?>",
+              data: {type: "email"},
+              success: function(response) {
+                  alert( "success " + response);
+                }
+            });
+        }
 
         function initData(){
           for (index = 0; index < pages.length ; index++){
@@ -114,7 +151,7 @@
                     
                     html+="<option value=\""+key+"\">"+key+"</option>";
                   } 
-                  html+="</select></td>"; 
+                  html+="</select></td>";
                 }
               }
              html+="</tr></table>"; 
