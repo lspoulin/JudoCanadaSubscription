@@ -1,10 +1,8 @@
 <?php get_header(); ?>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<?php 
-wp_deregister_script('repeat_object');
-wp_register_script('repeat_object', get_template_directory_uri() . '../blackbelt-registration-form/object.js');
-?>
+
+  <script src="<?php echo get_stylesheet_directory_uri().'/object.js';?>"></script>
     <script>
 
         var pages = ["idDivFormPersonalInformations", "idDivJudoCanadaInformation", "idDivCertification", "idDivGrade", "idDivTechnicalPoint", "idDivFinalPoint", "idDivIJFOnly", "idDivPayForm"];
