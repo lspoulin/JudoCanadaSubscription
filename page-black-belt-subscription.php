@@ -1,3 +1,37 @@
+<?php 
+ 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
+    //echo "request is a post "; 
+    $type = $_POST['type']; 
+    switch ($type) { 
+        case 'email': 
+            sendEmail(); 
+            break; 
+        case 'validate': 
+            validate(); 
+            break; 
+    } 
+    exit(); 
+} 
+ 
+function sendEmail(){ 
+    echo "send email please setup the smtp server"; 
+    $msg = "First line of text\nSecond line of text"; 
+    // use wordwrap() if lines are longer than 70 characters 
+    $msg = wordwrap($msg,70); 
+    // send email 
+    /*ini_set('SMTP','myserver'); 
+    ini_set('smtp_port',25); 
+    mail("lspoulin@gmail.com","My subject",$msg); 
+     */ 
+} 
+
+function validate(){ 
+   $data = json_decode($_POST['data'], true);
+   var_dump($data);
+}
+?>
+
 <?php get_header(); ?>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
