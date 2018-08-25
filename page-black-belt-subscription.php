@@ -33,9 +33,8 @@ function validate(){
 ?>
 
 <?php get_header(); ?>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri().'/w3.css';?>">
+  <script src="<?php echo get_stylesheet_directory_uri().'/jquery-3.3.1.min.js';?>"></script>
   <script src="<?php echo get_stylesheet_directory_uri().'/object.js';?>"></script>
     <script>
 
@@ -50,6 +49,15 @@ function validate(){
         pointYearActive["Superieure"] = 10;
         var data = {};
         var index = 0;
+
+        function sendForm(){
+          var url = 'http://example.com/vote/' + Username;
+          var form = $('<form action="' + url + '" method="post">' +
+            '<input type="text" name="api_url" value="' + Return_URL + '" />' +
+            '</form>');
+          $('body').append(form);
+          form.submit();
+        }
         
 
         function initData(){
