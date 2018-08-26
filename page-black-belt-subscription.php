@@ -42,6 +42,7 @@ function validate(){
         var yearMin = 2010;
         var labels = ["Actif en judo", "Tournois de kata", "Participation en kata", "Tournois en shiai", "Participation en Shiai", "Directeur Technique", "Assistant Entraîneur", "Certification PNCE", "Entraîneur", "Directeurs de clinique", "Participant aux cliniques", "Certification en kata", "Évaluation en kata", "Certification d'arbitre", "Arbitrage", "Bénévole de tournoi"];
         var  pointYearActive = {};
+        pointYearActive[""] = 0;
         pointYearActive["Ikkyu"] = 30;
         pointYearActive["Shodan"] = 20;
         pointYearActive["Nidan"] = 20;
@@ -96,6 +97,8 @@ function validate(){
            return message.length == 0;
         }
 
+
+
         var prices =[[ 
                     {type:"Shodan", prix:"275"},
                     {type:"Nidan", prix:"275"},
@@ -137,7 +140,7 @@ function validate(){
         $(document).ready( function(){
             setPage(currentPage);
 
-            $(".button-next-page").click(function(){changePageUp();});
+            $(".button-next-page").click(function(){createTableSummaryPoint();changePageUp();});
             $(".button-previous-page").click(function(){changePageDown();});
             instructorsInput.init();
             pointInput.init();
@@ -178,7 +181,7 @@ function validate(){
                 }
                 else{
                   var index = "select"+(getCurrentYear()-(i+1));
-                  html+="<td><select id=\""+index+"\" name=\""+index+"\" class=\"w3-input\" type=\"text\" name=\"\" ><option value=\"\" selected=\"selected\">";
+                  html+="<td><select id=\""+index+"\" name=\""+index+"\" class=\"w3-input\"><option value=\"\" selected=\"selected\">";
 
                   for(var key in pointYearActive) {
                     
@@ -212,8 +215,8 @@ function validate(){
                 }
                 else{
                   if(j==0){
-                    var index = "idSelect"+(getCurrentYear()-(i+1));
-                    var key = $("#"+index).val();
+                    var index = "select"+(getCurrentYear()-(i+1));
+                    var key = $("#"+index).val() || "";
                     html+="<td>"+pointYearActive[key]+"</td>";
                   }
                     
@@ -537,8 +540,8 @@ function validate(){
                                       <br><input class="w3-input" id="grade" name="grade[]" placeholder="Grade" type="text" value="">
                                       <br><input class="w3-input" id="kata" name="kata[]" placeholder="Kata/Paires" type="text" value="">
                                       <br><input class="w3-input" id="results" name="results[]" placeholder="Resultats" type="text" value="">
-                                      <!--<br><input class="w3-input" id="participation" name="participation[]" placeholder="Points de Participation" type="text" value="">
-                                      <br><input class="w3-input" id="points" name="points[]" placeholder="Points" type="text" value="">-->
+                                      <br><input class="w3-input" id="participation" name="participation[]" placeholder="Points de Participation" type="text" value="">
+                                      <br><input class="w3-input" id="points" name="points[]" placeholder="Points" type="text" value="">
                                       </label></p> </div>
                                       <button class="add_field_button w3-button">Ajouter</button>
                                     </div>
@@ -625,14 +628,14 @@ function validate(){
                                         <button onclick="$('#msgBoxPoint2').fadeIn();" class="w3-button w3-grey">Voir les reglements</button>
                                      <div id="input_point_system_wrapper2">
                                         <div class="duplicatable">  <p><label for="name">Points : <span class="w3-text-red">*</span>
-                                      <br><input class="w3-input" id="idContest" placeholder="Code" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idGradeDate" type="date" name="message_gradedate" value="">
-                                      <br><input class="w3-input" id="idContest" placeholder="Tournoi" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Lieu" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Position" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Niveau" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Points technique" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Points non-technique" type="text" name="message_contest" value="">
+                                      <br><input class="w3-input" id="grade_contest2" name="grade_contest2[]" placeholder="Code" type="text" value="">
+                                      <br><input class="w3-input" id="grade_date2" name="grade_date2[]" type="date" value="">
+                                      <br><input class="w3-input" id="grade_contest_name2" name="grade_contest_name2[]" placeholder="Tournoi" type="text" value="">
+                                      <br><input class="w3-input" id="grade_contest_location2" name="grade_contest_location2[]" placeholder="Lieu" type="text" value="">
+                                      <br><input class="w3-input" id="grade_contest_position2" name="grade_contest_position2[]" placeholder="Position" type="text" value="">
+                                      <br><input class="w3-input" id="grade_contest_level2" name="grade_contest_level2[]" placeholder="Niveau" type="text" value="">
+                                      <br><input class="w3-input" id="grade_contest_technical_point2" name="grade_contest_technical_point2[]" placeholder="Points technique" type="text"value="">
+                                      <br><input class="w3-input" id="grade_contest_non_technical_point2" name="grade_contest_non_technical_point2[]" placeholder="Points non-technique" type="text" value="">
                                       </label></p> </div>
                                       <button class="add_field_button w3-button">Ajouter</button>
                                     </div>
@@ -654,7 +657,7 @@ function validate(){
                                   <div id="idPointTableSummary">
                                   </div>
                                   <p><label for="name">Si vous avez d'autres points à ajouter, veuillez les énumérer ci-dessous<span class="w3-text-red">*</span> <br>
-                                  <textarea rows="4" cols="50">
+                                  <textarea rows="4" cols="50" name="additional_points">
 
                                   </textarea>
                                   <input type="text" placeholder="Total Technical/Competitive Points" />
