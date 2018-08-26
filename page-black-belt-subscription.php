@@ -81,6 +81,7 @@ function validate(){
         }
 
         function validate(page){
+          return true;
           var message = "";
            $("#"+page+" :input").each(function( ) {
               if($(this).attr('required') == "required"){
@@ -176,8 +177,8 @@ function validate(){
                   html+="<tr><td>Niveau</td>";
                 }
                 else{
-                  var index = "idSelect"+(getCurrentYear()-(i+1));
-                  html+="<td><select id=\""+index+"\" class=\"w3-input\" type=\"text\" name=\"\" ><option value=\"\" selected=\"selected\">";
+                  var index = "select"+(getCurrentYear()-(i+1));
+                  html+="<td><select id=\""+index+"\" name=\""+index+"\" class=\"w3-input\" type=\"text\" name=\"\" ><option value=\"\" selected=\"selected\">";
 
                   for(var key in pointYearActive) {
                     
@@ -346,44 +347,44 @@ function validate(){
                                 </div>
                                 <div class="w3-container" style="margin-top:40px;margin-bottom:40px;margin-left:40px;margin-right:40px;">
                                   <p><label for="name">Votre nom : <span class="w3-text-red">*</span>
-                                      <br><table><tr><td><input class="w3-input" id="idFirstName" placeholder="Pr&eacute;nom" type="text" name="firstname" value="" required="required"> </td>
-                                      <td><input class="w3-input" id="idName" placeholder="Nom" type="text" name="name" value="" required="required">  </td></tr></table>
+                                      <br><table><tr><td><input class="w3-input" id="firstname" name="firstname" placeholder="Pr&eacute;nom" type="text"  value="" required="required"> </td>
+                                      <td><input class="w3-input" id="lastname" name="lastname" placeholder="Nom" type="text" value="" required="required">  </td></tr></table>
                                   </label></p>
 
                                   <p><label for="adress">Votre adresse : <span class="w3-text-red">*</span>
                                     <table><tr><td colspan="2">
-                                      <br><input class="w3-input" id="idStreetAdress2" placeholder="Adresse" type="text" name="adress1" value=""></td></tr>
+                                      <br><input class="w3-input" id="adress1" name="adress1" placeholder="Adresse" type="text"  value=""></td></tr>
                                       <tr><td colspan="2">
-                                      <br><input class="w3-input" id="idStreetAdress2" placeholder="Adresse line 2" type="text" name="adress2" value=""></td></tr>
+                                      <br><input class="w3-input" id="adress2" name="adress2" placeholder="Adresse line 2" type="text"  value=""></td></tr>
                                       <tr><td>
-                                      <br><input class="w3-input" id="idCity" placeholder="Ville" type="text" name="city" value=""> </td><td>
-                                      <br><input class="w3-input" id="idState" placeholder="Etat" type="text" name="state" value=""> </td></tr><tr><td>
-                                      <br><input class="w3-input" id="idZipCode" placeholder="Code postal" type="text" name="zipcode" value=""> </td><td>
+                                      <br><input class="w3-input" id="city" name="city" placeholder="Ville" type="text" value=""> </td><td>
+                                      <br><input class="w3-input" id="state" name="state" placeholder="Etat" type="text"  value=""> </td></tr><tr><td>
+                                      <br><input class="w3-input" id="zipcode" name="zipcode" placeholder="Code postal" type="text"  value=""> </td><td>
 
-                                      <br><label for="adress">Pays:<br><select class="w3-input" type="text" id="idCountry" name="country" ><option value=""></option><option value="Afghanistan" >Afghanistan</option><option value="Albania" >Albania</option><option value="Algeria" >Algeria</option><option value="Andorra" >Andorra</option><option value="Angola" >Angola</option><option value="Antigua and Barbuda" >Antigua and Barbuda</option><option value="Argentina" >Argentina</option><option value="Armenia" >Armenia</option><option value="Australia" >Australia</option><option value="Austria" >Austria</option><option value="Azerbaijan" >Azerbaijan</option><option value="Bahamas" >Bahamas</option><option value="Bahrain" >Bahrain</option><option value="Bangladesh" >Bangladesh</option><option value="Barbados" >Barbados</option><option value="Belarus" >Belarus</option><option value="Belgium" >Belgium</option><option value="Belize" >Belize</option><option value="Benin" >Benin</option><option value="Bhutan" >Bhutan</option><option value="Bolivia" >Bolivia</option><option value="Bosnia and Herzegovina" >Bosnia and Herzegovina</option><option value="Botswana" >Botswana</option><option value="Brazil" >Brazil</option><option value="Brunei" >Brunei</option><option value="Bulgaria" >Bulgaria</option><option value="Burkina Faso" >Burkina Faso</option><option value="Burundi" >Burundi</option><option value="Cambodia" >Cambodia</option><option value="Cameroon" >Cameroon</option><option value="Canada" selected="selected">Canada</option><option value="Cape Verde" >Cape Verde</option><option value="Central African Republic" >Central African Republic</option><option value="Chad" >Chad</option><option value="Chile" >Chile</option><option value="China" >China</option><option value="Colombia" >Colombia</option><option value="Comoros" >Comoros</option><option value="Congo (Brazzaville)" >Congo (Brazzaville)</option><option value="Congo" >Congo</option><option value="Costa Rica" >Costa Rica</option><option value="Cote d'Ivoire" >Cote d'Ivoire</option><option value="Croatia" >Croatia</option><option value="Cuba" >Cuba</option><option value="Cyprus" >Cyprus</option><option value="Czech Republic" >Czech Republic</option><option value="Denmark" >Denmark</option><option value="Djibouti" >Djibouti</option><option value="Dominica" >Dominica</option><option value="Dominican Republic" >Dominican Republic</option><option value="East Timor (Timor Timur)" >East Timor (Timor Timur)</option><option value="Ecuador" >Ecuador</option><option value="Egypt" >Egypt</option><option value="El Salvador" >El Salvador</option><option value="Equatorial Guinea" >Equatorial Guinea</option><option value="Eritrea" >Eritrea</option><option value="Estonia" >Estonia</option><option value="Ethiopia" >Ethiopia</option><option value="Fiji" >Fiji</option><option value="Finland" >Finland</option><option value="France" >France</option><option value="Gabon" >Gabon</option><option value="Gambia, The" >Gambia, The</option><option value="Georgia" >Georgia</option><option value="Germany" >Germany</option><option value="Ghana" >Ghana</option><option value="Greece" >Greece</option><option value="Grenada" >Grenada</option><option value="Guatemala" >Guatemala</option><option value="Guinea" >Guinea</option><option value="Guinea-Bissau" >Guinea-Bissau</option><option value="Guyana" >Guyana</option><option value="Haiti" >Haiti</option><option value="Honduras" >Honduras</option><option value="Hungary" >Hungary</option><option value="Iceland" >Iceland</option><option value="India" >India</option><option value="Indonesia" >Indonesia</option><option value="Iran" >Iran</option><option value="Iraq" >Iraq</option><option value="Ireland" >Ireland</option><option value="Israel" >Israel</option><option value="Italy" >Italy</option><option value="Jamaica" >Jamaica</option><option value="Japan" >Japan</option><option value="Jordan" >Jordan</option><option value="Kazakhstan" >Kazakhstan</option><option value="Kenya" >Kenya</option><option value="Kiribati" >Kiribati</option><option value="Korea, North" >Korea, North</option><option value="Korea, South" >Korea, South</option><option value="Kuwait" >Kuwait</option><option value="Kyrgyzstan" >Kyrgyzstan</option><option value="Laos" >Laos</option><option value="Latvia" >Latvia</option><option value="Lebanon" >Lebanon</option><option value="Lesotho" >Lesotho</option><option value="Liberia" >Liberia</option><option value="Libya" >Libya</option><option value="Liechtenstein" >Liechtenstein</option><option value="Lithuania" >Lithuania</option><option value="Luxembourg" >Luxembourg</option><option value="Macedonia" >Macedonia</option><option value="Madagascar" >Madagascar</option><option value="Malawi" >Malawi</option><option value="Malaysia" >Malaysia</option><option value="Maldives" >Maldives</option><option value="Mali" >Mali</option><option value="Malta" >Malta</option><option value="Marshall Islands" >Marshall Islands</option><option value="Mauritania" >Mauritania</option><option value="Mauritius" >Mauritius</option><option value="Mexico" >Mexico</option><option value="Micronesia" >Micronesia</option><option value="Moldova" >Moldova</option><option value="Monaco" >Monaco</option><option value="Mongolia" >Mongolia</option><option value="Morocco" >Morocco</option><option value="Mozambique" >Mozambique</option><option value="Myanmar" >Myanmar</option><option value="Namibia" >Namibia</option><option value="Nauru" >Nauru</option><option value="Nepal" >Nepal</option><option value="Netherlands" >Netherlands</option><option value="New Zealand" >New Zealand</option><option value="Nicaragua" >Nicaragua</option><option value="Niger" >Niger</option><option value="Nigeria" >Nigeria</option><option value="Norway" >Norway</option><option value="Oman" >Oman</option><option value="Pakistan" >Pakistan</option><option value="Palau" >Palau</option><option value="Panama" >Panama</option><option value="Papua New Guinea" >Papua New Guinea</option><option value="Paraguay" >Paraguay</option><option value="Peru" >Peru</option><option value="Philippines" >Philippines</option><option value="Poland" >Poland</option><option value="Portugal" >Portugal</option><option value="Qatar" >Qatar</option><option value="Romania" >Romania</option><option value="Russia" >Russia</option><option value="Rwanda" >Rwanda</option><option value="Saint Kitts and Nevis" >Saint Kitts and Nevis</option><option value="Saint Lucia" >Saint Lucia</option><option value="Saint Vincent" >Saint Vincent</option><option value="Samoa" >Samoa</option><option value="San Marino" >San Marino</option><option value="Sao Tome and Principe" >Sao Tome and Principe</option><option value="Saudi Arabia" >Saudi Arabia</option><option value="Senegal" >Senegal</option><option value="Serbia and Montenegro" >Serbia and Montenegro</option><option value="Seychelles" >Seychelles</option><option value="Sierra Leone" >Sierra Leone</option><option value="Singapore" >Singapore</option><option value="Slovakia" >Slovakia</option><option value="Slovenia" >Slovenia</option><option value="Solomon Islands" >Solomon Islands</option><option value="Somalia" >Somalia</option><option value="South Africa" >South Africa</option><option value="Spain" >Spain</option><option value="Sri Lanka" >Sri Lanka</option><option value="Sudan" >Sudan</option><option value="Suriname" >Suriname</option><option value="Swaziland" >Swaziland</option><option value="Sweden" >Sweden</option><option value="Switzerland" >Switzerland</option><option value="Syria" >Syria</option><option value="Taiwan" >Taiwan</option><option value="Tajikistan" >Tajikistan</option><option value="Tanzania" >Tanzania</option><option value="Thailand" >Thailand</option><option value="Togo" >Togo</option><option value="Tonga" >Tonga</option><option value="Trinidad and Tobago" >Trinidad and Tobago</option><option value="Tunisia" >Tunisia</option><option value="Turkey" >Turkey</option><option value="Turkmenistan" >Turkmenistan</option><option value="Tuvalu" >Tuvalu</option><option value="Uganda" >Uganda</option><option value="Ukraine" >Ukraine</option><option value="United Arab Emirates" >United Arab Emirates</option><option value="United Kingdom" >United Kingdom</option><option value="United States" >United States</option><option value="Uruguay" >Uruguay</option><option value="Uzbekistan" >Uzbekistan</option><option value="Vanuatu" >Vanuatu</option><option value="Vatican City" >Vatican City</option><option value="Venezuela" >Venezuela</option><option value="Vietnam" >Vietnam</option><option value="Yemen" >Yemen</option><option value="Zambia" >Zambia</option><option value="Zimbabwe" >Zimbabwe</option></select>
+                                      <br><label for="adress">Pays:<br><select class="w3-input" type="text" id="country" name="country" ><option value=""></option><option value="Afghanistan" >Afghanistan</option><option value="Albania" >Albania</option><option value="Algeria" >Algeria</option><option value="Andorra" >Andorra</option><option value="Angola" >Angola</option><option value="Antigua and Barbuda" >Antigua and Barbuda</option><option value="Argentina" >Argentina</option><option value="Armenia" >Armenia</option><option value="Australia" >Australia</option><option value="Austria" >Austria</option><option value="Azerbaijan" >Azerbaijan</option><option value="Bahamas" >Bahamas</option><option value="Bahrain" >Bahrain</option><option value="Bangladesh" >Bangladesh</option><option value="Barbados" >Barbados</option><option value="Belarus" >Belarus</option><option value="Belgium" >Belgium</option><option value="Belize" >Belize</option><option value="Benin" >Benin</option><option value="Bhutan" >Bhutan</option><option value="Bolivia" >Bolivia</option><option value="Bosnia and Herzegovina" >Bosnia and Herzegovina</option><option value="Botswana" >Botswana</option><option value="Brazil" >Brazil</option><option value="Brunei" >Brunei</option><option value="Bulgaria" >Bulgaria</option><option value="Burkina Faso" >Burkina Faso</option><option value="Burundi" >Burundi</option><option value="Cambodia" >Cambodia</option><option value="Cameroon" >Cameroon</option><option value="Canada" selected="selected">Canada</option><option value="Cape Verde" >Cape Verde</option><option value="Central African Republic" >Central African Republic</option><option value="Chad" >Chad</option><option value="Chile" >Chile</option><option value="China" >China</option><option value="Colombia" >Colombia</option><option value="Comoros" >Comoros</option><option value="Congo (Brazzaville)" >Congo (Brazzaville)</option><option value="Congo" >Congo</option><option value="Costa Rica" >Costa Rica</option><option value="Cote d'Ivoire" >Cote d'Ivoire</option><option value="Croatia" >Croatia</option><option value="Cuba" >Cuba</option><option value="Cyprus" >Cyprus</option><option value="Czech Republic" >Czech Republic</option><option value="Denmark" >Denmark</option><option value="Djibouti" >Djibouti</option><option value="Dominica" >Dominica</option><option value="Dominican Republic" >Dominican Republic</option><option value="East Timor (Timor Timur)" >East Timor (Timor Timur)</option><option value="Ecuador" >Ecuador</option><option value="Egypt" >Egypt</option><option value="El Salvador" >El Salvador</option><option value="Equatorial Guinea" >Equatorial Guinea</option><option value="Eritrea" >Eritrea</option><option value="Estonia" >Estonia</option><option value="Ethiopia" >Ethiopia</option><option value="Fiji" >Fiji</option><option value="Finland" >Finland</option><option value="France" >France</option><option value="Gabon" >Gabon</option><option value="Gambia, The" >Gambia, The</option><option value="Georgia" >Georgia</option><option value="Germany" >Germany</option><option value="Ghana" >Ghana</option><option value="Greece" >Greece</option><option value="Grenada" >Grenada</option><option value="Guatemala" >Guatemala</option><option value="Guinea" >Guinea</option><option value="Guinea-Bissau" >Guinea-Bissau</option><option value="Guyana" >Guyana</option><option value="Haiti" >Haiti</option><option value="Honduras" >Honduras</option><option value="Hungary" >Hungary</option><option value="Iceland" >Iceland</option><option value="India" >India</option><option value="Indonesia" >Indonesia</option><option value="Iran" >Iran</option><option value="Iraq" >Iraq</option><option value="Ireland" >Ireland</option><option value="Israel" >Israel</option><option value="Italy" >Italy</option><option value="Jamaica" >Jamaica</option><option value="Japan" >Japan</option><option value="Jordan" >Jordan</option><option value="Kazakhstan" >Kazakhstan</option><option value="Kenya" >Kenya</option><option value="Kiribati" >Kiribati</option><option value="Korea, North" >Korea, North</option><option value="Korea, South" >Korea, South</option><option value="Kuwait" >Kuwait</option><option value="Kyrgyzstan" >Kyrgyzstan</option><option value="Laos" >Laos</option><option value="Latvia" >Latvia</option><option value="Lebanon" >Lebanon</option><option value="Lesotho" >Lesotho</option><option value="Liberia" >Liberia</option><option value="Libya" >Libya</option><option value="Liechtenstein" >Liechtenstein</option><option value="Lithuania" >Lithuania</option><option value="Luxembourg" >Luxembourg</option><option value="Macedonia" >Macedonia</option><option value="Madagascar" >Madagascar</option><option value="Malawi" >Malawi</option><option value="Malaysia" >Malaysia</option><option value="Maldives" >Maldives</option><option value="Mali" >Mali</option><option value="Malta" >Malta</option><option value="Marshall Islands" >Marshall Islands</option><option value="Mauritania" >Mauritania</option><option value="Mauritius" >Mauritius</option><option value="Mexico" >Mexico</option><option value="Micronesia" >Micronesia</option><option value="Moldova" >Moldova</option><option value="Monaco" >Monaco</option><option value="Mongolia" >Mongolia</option><option value="Morocco" >Morocco</option><option value="Mozambique" >Mozambique</option><option value="Myanmar" >Myanmar</option><option value="Namibia" >Namibia</option><option value="Nauru" >Nauru</option><option value="Nepal" >Nepal</option><option value="Netherlands" >Netherlands</option><option value="New Zealand" >New Zealand</option><option value="Nicaragua" >Nicaragua</option><option value="Niger" >Niger</option><option value="Nigeria" >Nigeria</option><option value="Norway" >Norway</option><option value="Oman" >Oman</option><option value="Pakistan" >Pakistan</option><option value="Palau" >Palau</option><option value="Panama" >Panama</option><option value="Papua New Guinea" >Papua New Guinea</option><option value="Paraguay" >Paraguay</option><option value="Peru" >Peru</option><option value="Philippines" >Philippines</option><option value="Poland" >Poland</option><option value="Portugal" >Portugal</option><option value="Qatar" >Qatar</option><option value="Romania" >Romania</option><option value="Russia" >Russia</option><option value="Rwanda" >Rwanda</option><option value="Saint Kitts and Nevis" >Saint Kitts and Nevis</option><option value="Saint Lucia" >Saint Lucia</option><option value="Saint Vincent" >Saint Vincent</option><option value="Samoa" >Samoa</option><option value="San Marino" >San Marino</option><option value="Sao Tome and Principe" >Sao Tome and Principe</option><option value="Saudi Arabia" >Saudi Arabia</option><option value="Senegal" >Senegal</option><option value="Serbia and Montenegro" >Serbia and Montenegro</option><option value="Seychelles" >Seychelles</option><option value="Sierra Leone" >Sierra Leone</option><option value="Singapore" >Singapore</option><option value="Slovakia" >Slovakia</option><option value="Slovenia" >Slovenia</option><option value="Solomon Islands" >Solomon Islands</option><option value="Somalia" >Somalia</option><option value="South Africa" >South Africa</option><option value="Spain" >Spain</option><option value="Sri Lanka" >Sri Lanka</option><option value="Sudan" >Sudan</option><option value="Suriname" >Suriname</option><option value="Swaziland" >Swaziland</option><option value="Sweden" >Sweden</option><option value="Switzerland" >Switzerland</option><option value="Syria" >Syria</option><option value="Taiwan" >Taiwan</option><option value="Tajikistan" >Tajikistan</option><option value="Tanzania" >Tanzania</option><option value="Thailand" >Thailand</option><option value="Togo" >Togo</option><option value="Tonga" >Tonga</option><option value="Trinidad and Tobago" >Trinidad and Tobago</option><option value="Tunisia" >Tunisia</option><option value="Turkey" >Turkey</option><option value="Turkmenistan" >Turkmenistan</option><option value="Tuvalu" >Tuvalu</option><option value="Uganda" >Uganda</option><option value="Ukraine" >Ukraine</option><option value="United Arab Emirates" >United Arab Emirates</option><option value="United Kingdom" >United Kingdom</option><option value="United States" >United States</option><option value="Uruguay" >Uruguay</option><option value="Uzbekistan" >Uzbekistan</option><option value="Vanuatu" >Vanuatu</option><option value="Vatican City" >Vatican City</option><option value="Venezuela" >Venezuela</option><option value="Vietnam" >Vietnam</option><option value="Yemen" >Yemen</option><option value="Zambia" >Zambia</option><option value="Zimbabwe" >Zimbabwe</option></select>
                                       </label>
                                        </td></tr>
                                       </table>
                                   </label></p>
 
                                   <p><label for="email">Contact : <span class="w3-text-red">*</span>
-                                    <br><input class="w3-input" id="idEmail" placeholder="E-mail:" type="email" name="email" value="">
-                                  <input id="idPhone" placeholder="T&eacute;l&eacute;phone" type="tel" name="phone" value=""></label></p>
+                                    <br><input class="w3-input" id="email" name="email" placeholder="E-mail:" type="email"  value="">
+                                  <input id="phone" name="phone" placeholder="T&eacute;l&eacute;phone" type="tel" value=""></label></p>
 
                                   <p><label for="birthdate">Date de naissance <span class="w3-text-red">*</span>
-                                    <br><input class="w3-input" id="idBirthdate" type="date" name="birthdate" value="">
+                                    <br><input class="w3-input" id="birthdate" name="birthdate" type="date" value="">
                                   </label></p>
 
                                   <label for="status">Statut <span class="w3-text-red">*</span><br>
-                                      <input class="w3-input" type="radio" name="statusCitizen" value="Citizen" checked>Citoyen<br>
-                                      <input class="w3-input" type="radio" name="statusPermanent" value="Resident">Résident Permanent<br>
-                                      <input class="w3-input" type="radio" value="Other" onchange="">Autre   <div id="idDivOtherStatus" class="w3-hide"><input id="idOtherStatus" placeholder="Autres status" type="text" name="otherstatus" value=""></div>
+                                      <input class="w3-input" type="radio" name="status" value="Citizen" checked>Citoyen<br>
+                                      <input class="w3-input" type="radio" name="status" value="Resident">Résident Permanent<br>
+                                      <input class="w3-input" type="radio" name="status" value="Other" onchange="">Autre   <div id="idDivOtherStatus" class="w3-hide"><input id="otherstatus" name="otherstatus" placeholder="Autres status" type="text" value=""></div>
                                   </label>
 
 
                                   <label for="gender">Statut <span class="w3-text-red">*</span><br>
-                                      <input class="w3-input" type="radio" name="genderMale" value="male">Homme<br>
-                                      <input class="w3-input" type="radio" name="genderFemale" value="female">Femme<br>
+                                      <input class="w3-input" type="radio" name="gender" value="male">Homme<br>
+                                      <input class="w3-input" type="radio" name="gender" value="female">Femme<br>
                                    </label>
                                    <div class="w3-center w3-margin-bottom">
                                         <button class="w3-button w3-green button-next-page">Prochaine Page</button>
@@ -402,26 +403,28 @@ function validate(){
                                 </div>
                                 <div class="w3-container">
                                <p><label for="name">Candidat pour : <span class="w3-text-red">*</span> <br>
-                                      <select id="idSelectLevel"><option value="Shodan" selected="selected">Shodan</option>
-                                                                    <option value="Nidan" >Nidan</option>
-                                                                    <option value="Sandan" >Sandan</option>
-                                                                    <option value="Yondan" >Yondan</option>
-                                                                    <option value="Godan" >Godan</option>
-                                                                    <option value="Rokudan" >Rokudan</option>
-                                                                    <option value="Shichidan" >Shichidan</option>
-                                                                    <option value="Hachidan" >Hachidan</option>
-                                                                    <option value="Kudan" >Kudan</option></select></label></p>
-                                <p><input id="idJudoCanadaId" class="w3-input" placeholder="# de membre - Judo Canada" type="text" name="message_judocanada_id" value="" pattern="[0-9]*"></p>
-                                <p><input id="idDojo" class="w3-input" placeholder="Dojo" type="text" name="message_dojo" value=""></p>
-                                <p><input id="idInstructor" class="w3-input" placeholder="Instructeur - Dan" type="text" name="message_instructor" value=""></p>
-                                <p><input id="idInstructorEmail" class="w3-input" placeholder="Instructeur email" type="email" name="message_instructor_email" value=""></p>
+                                      <select id="selectlevel" name="selectlevel">
+                                          <option value="Shodan" selected="selected">Shodan</option>
+                                          <option value="Nidan" >Nidan</option>
+                                          <option value="Sandan" >Sandan</option>
+                                          <option value="Yondan" >Yondan</option>
+                                          <option value="Godan" >Godan</option>
+                                          <option value="Rokudan" >Rokudan</option>
+                                          <option value="Shichidan" >Shichidan</option>
+                                          <option value="Hachidan" >Hachidan</option>
+                                          <option value="Kudan" >Kudan</option></select>
+                                  </label></p>
+                                <p><input id="judocanada_id" name="judocanada_id" class="w3-input" placeholder="# de membre - Judo Canada" type="text"  value="" pattern="[0-9]*"></p>
+                                <p><input id="dojo" name="dojo" class="w3-input" placeholder="Dojo" type="text" value=""></p>
+                                <p><input id="instructor_name" name="instructor_name" class="w3-input" placeholder="Instructeur - Dan" type="text"  value=""></p>
+                                <p><input id="instructor_email" name="instructor_email" class="w3-input" placeholder="Instructeur email" type="email"  value=""></p>
                                  <p><label for="enrollementdate">Date de début <span class="w3-text-red">*</span>
-                                    <br><input class="w3-input" id="idEnrollementDate" type="date" name="message_enrollementdate" value="">
+                                    <br><input class="w3-input" id="enrollement_date" name="enrollement_date" type="date" value="">
                                   </label></p>
                                  <p><label for="startingdate">Année de début du judo <span class="w3-text-red">*</span>
-                                    <br><input class="w3-input" id="idStartingDate" type="number" min="1900" max="2020" name="message_startingdate" value="1990">
+                                    <br><input id="starting_date" name="starting_date" class="w3-input" type="number" min="1900" max="2020"  value="1990">
                                   </label></p>
-                                  <p><label for="startingdate">Années actif en judo <span class="w3-text-red">*</span>
+                                  <p><label for="activeyear">Années actif en judo <span class="w3-text-red">*</span>
                                   <div id="divYearActive">
                                   </div>
                                   </label></p>
@@ -452,43 +455,43 @@ function validate(){
                                 </div>
                                 <div class="w3-container">
                                <p><label for="name">Grade - Date obtenue : <span class="w3-text-red">*</span> <br>
-                                     <label>1K</label><input id="idGrade1K" class="w3-input" type="date" name="message_grade1k" value=""><br>
-                                     <label>1D</label><input id="idGrade1D" class="w3-input" type="date" name="message_grade1d" value=""><br>
-                                     <label>2D</label><input id="idGrade2D" class="w3-input" type="date" name="message_grade2d" value=""><br>
-                                     <label>3D</label><input id="idGrade3D" class="w3-input" type="date" name="message_grade3d" value=""><br>
-                                     <label>4D</label><input id="idGrade4D" class="w3-input" type="date" name="message_grade4d" value=""><br>
-                                     <label>5D</label><input id="idGrade5D" class="w3-input" type="date" name="message_grade5d" value=""><br>
-                                     <label>6D</label><input id="idGrade6D" class="w3-input" type="date" name="message_grade6d" value=""><br>
-                                     <label>7D</label><input id="idGrade7D" class="w3-input" type="date" name="message_grade7d" value=""><br>
-                                     <label>8D</label><input id="idGrade8D" class="w3-input" type="date" name="message_grade8d" value=""><br>
+                                     <label>1K</label><input id="grade1K" name="grade1K" class="w3-input" type="date"  value=""><br>
+                                     <label>1D</label><input id="grade1D" name="grade1D" class="w3-input" type="date" value=""><br>
+                                     <label>2D</label><input id="grade2D" name="grade2D" class="w3-input" type="date" value=""><br>
+                                     <label>3D</label><input id="grade3D" name="grade3D" class="w3-input" type="date" value=""><br>
+                                     <label>4D</label><input id="grade4D" name="grade4D" class="w3-input" type="date" value=""><br>
+                                     <label>5D</label><input id="grade5D" name="grade5D" class="w3-input" type="date" value=""><br>
+                                     <label>6D</label><input id="grade6D" name="grade6D" class="w3-input" type="date" value=""><br>
+                                     <label>7D</label><input id="grade7D" name="grade7D" class="w3-input" type="date" value=""><br>
+                                     <label>8D</label><input id="grade8D" name="grade8D" class="w3-input" type="date" value=""><br>
                                </label></p>
                                <p><label for="name">Certification d'arbitre - Date Obtenue <span class="w3-text-red">*</span> <br>
-                                     <label>Reg</label><input id="idGradeReg" class="w3-input" type="date" name="message_gradeReg" value=""><br>
-                                     <label>Prv C</label><input id="idGradePrvC" class="w3-input" type="date" name="message_gradePrvC" value=""><br>
-                                     <label>Prv B</label><input id="idGradePrvB" class="w3-input" type="date" name="message_gradePrvB" value=""><br>
-                                     <label>Prv A</label><input id="idGradePrvA" class="w3-input" type="date" name="message_gradePrvA" value=""><br>
-                                     <label>Nat C</label><input id="idGradeNatC" class="w3-input" type="date" name="message_gradeNatC" value=""><br>
-                                     <label>Nat B</label><input id="idGradeNatB" class="w3-input" type="date" name="message_gradeNatB" value=""><br>
-                                     <label>Nat A</label><input id="idGradeNatA" class="w3-input" type="date" name="message_gradeNatA" value=""><br>
-                                     <label>PJU</label><input id="idGradePJU" class="w3-input" type="date" name="message_gradePJU" value=""><br>
-                                     <label>IJF</label><input id="idGradeIJF" class="w3-input" type="date" name="message_gradeIJF" value=""><br>
-                                     <label>Other</label><input id="idGradeOther" class="w3-input" type="text" name="message_gradeOther" value=""><br>
+                                     <label>Reg</label><input id="grade_reg" name="grade_reg" class="w3-input" type="date" value=""><br>
+                                     <label>Prv C</label><input id="grade_prvc" name="grade_prvc" class="w3-input" type="date" value=""><br>
+                                     <label>Prv B</label><input id="grade_prvb" name="grade_prvb" class="w3-input" type="date" value=""><br>
+                                     <label>Prv A</label><input id="grade_prva" name="grade_prva" class="w3-input" type="date" value=""><br>
+                                     <label>Nat C</label><input id="grade_natc" name="grade_natc" class="w3-input" type="date" value=""><br>
+                                     <label>Nat B</label><input id="grade_natb" name="grade_natb" class="w3-input" type="date" value=""><br>
+                                     <label>Nat A</label><input id="grade_nata" name="grade_nata" class="w3-input" type="date" value=""><br>
+                                     <label>PJU</label><input id="grade_pju" name="grade_pju" class="w3-input" type="date" value=""><br>
+                                     <label>IJF</label><input id="grade_ifj" name="grade_ifj" class="w3-input" type="date" value=""><br>
+                                     <label>Other</label><input id="grade_other" name="grade_other" class="w3-input" type="text" value=""><br>
                                </label></p>
                                <p><label for="name">NCCP PNCE <span class="w3-text-red">*</span> <br>
-                                     <label>HP Coach Certified</label><input id="idGradeNCCPHPCoach" class="w3-input" type="text" name="message_gradeNCCPHPCoach" value=""><br>
-                                     <label>DA or Community Coach Certified</label><input id="idGradNCCPDA" class="w3-input" type="date" name="message_gradeNCCPDA" value=""><br>
-                                     <label>DI</label><input id="idGradeNCCPDI" class="w3-input" type="date" name="message_gradeNCCPDI" value=""><br>
-                                     <label>CDev</label><input id="idGradeNCCPCDev" class="w3-input" type="date" name="message_gradeNCCPCDev" value=""><br>
-                                     <label>IV</label><input id="idGradeNCCPIV" class="w3-input" type="date" name="message_gradeNCCPIV" value=""><br>
-                                     <label>V</label><input id="idGradeNCCPV" class="w3-input" type="date" name="message_gradeNCCPV" value=""><br>
+                                     <label>HP Coach Certified</label><input id="grade_NCCPHPCoach" name="grade_NCCPHPCoach" class="w3-input" type="text" value=""><br>
+                                     <label>DA or Community Coach Certified</label><input id="grade_NCCPDA" name="grade_NCCPDA" class="w3-input" type="date" value=""><br>
+                                     <label>DI</label><input id="grade_NCCPDI" name="grade_NCCPDI" class="w3-input" type="date" value=""><br>
+                                     <label>CDev</label><input id="grade_NCCPCDev" name="grade_NCCPCDev" class="w3-input" type="date" value=""><br>
+                                     <label>IV</label><input id="grade_NCCPIV" name="grade_NCCPIV" class="w3-input" type="date" value=""><br>
+                                     <label>V</label><input id="grade_NCCPV" name="grade_NCCPV" class="w3-input" type="date" value=""><br>
                                </label></p>
 
                                 <p><label for="name">Facilitateur de cours <span class="w3-text-red">*</span> <br>
-                                     <label>DA</label><input id="idGradFacilitatorDA" class="w3-input" type="date" name="message_gradeFacilitatorDA" value=""><br>
-                                     <label>DI</label><input id="idGradeFacilitatorDI" class="w3-input" type="date" name="message_gradeFacilitatorDI" value=""><br>
-                                     <label>CDev</label><input id="idGradeFacilitatorDev" class="w3-input" type="date" name="message_gradeFacilitatorDev" value=""><br>
-                                     <label>IV</label><input id="idGradeFacilitatorIV" class="w3-input" type="date" name="message_gradeFacilitatorIV" value=""><br>
-                                     <label>V</label><input id="idGradeFacilitatorV" class="w3-input" type="date" name="message_gradeFacilitatorV" value=""><br>
+                                     <label>DA</label><input id="grade_facilitator_DA" name="grade_facilitator_DA" class="w3-input" type="date" value=""><br>
+                                     <label>DI</label><input id="grade_facilitator_DI" name="grade_facilitator_DI" class="w3-input" type="date" value=""><br>
+                                     <label>CDev</label><input id="grade_facilitator_Dev" name="grade_facilitator_Dev" class="w3-input" type="date" value=""><br>
+                                     <label>IV</label><input id="grade_facilitator_IV" name="grade_facilitator_IV" class="w3-input" type="date" value=""><br>
+                                     <label>V</label><input id="grade_Facilitator_V" name="grade_Facilitator_V" class="w3-input" type="date" value=""><br>
                                </label></p>
 
                                   <div class="w3-center w3-margin-bottom">
@@ -528,14 +531,14 @@ function validate(){
                                   
                                   <div id="input_point_system_wrapper">
                                         <div class="duplicatable"> <p><label for="startingdate">Système de pointage : <span class="w3-text-red">*</span>
-                                      <br><input class="w3-input" id="idGradeDate" type="DATE" name="message_gradedate" value="">
-                                      <br><input class="w3-input" id="idContest" placeholder="Tournoi et Lieu" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Adversaire/Partenaire (Uke/Tori)" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Grade" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Kata/Paires" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Resultats" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Points de Participation" type="text" name="message_contest" value="">
-                                      <br><input class="w3-input" id="idAdversary" placeholder="Points" type="text" name="message_contest" value="">
+                                      <br><input class="w3-input" id="grade_date" name="grade_date[]" type="date" value="">
+                                      <br><input class="w3-input" id="contest_location" name="contest_location[]" placeholder="Tournoi et Lieu" type="text" value="">
+                                      <br><input class="w3-input" id="adversary" name="adversary[]" placeholder="Adversaire/Partenaire (Uke/Tori)" type="text" value="">
+                                      <br><input class="w3-input" id="grade" name="grade[]" placeholder="Grade" type="text" value="">
+                                      <br><input class="w3-input" id="kata" name="kata[]" placeholder="Kata/Paires" type="text" value="">
+                                      <br><input class="w3-input" id="results" name="results[]" placeholder="Resultats" type="text" value="">
+                                      <!--<br><input class="w3-input" id="participation" name="participation[]" placeholder="Points de Participation" type="text" value="">
+                                      <br><input class="w3-input" id="points" name="points[]" placeholder="Points" type="text" value="">-->
                                       </label></p> </div>
                                       <button class="add_field_button w3-button">Ajouter</button>
                                     </div>
