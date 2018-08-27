@@ -1,4 +1,4 @@
-<?php 
+<?php
  
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
     //echo "request is a post "; 
@@ -7,8 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'email': 
             sendEmail(); 
             break; 
-        case 'validate': 
-            validate(); 
+        case 'validate':
+            validate();
             break; 
     } 
     exit(); 
@@ -26,7 +26,7 @@ function sendEmail(){
      */ 
 } 
 
-function validate(){ 
+function validate(){
    $data = json_decode($_POST['data'], true);
    var_dump($data);
 }
@@ -49,6 +49,7 @@ function validate(){
         pointYearActive["Sandan"] = 10;
         pointYearActive["Superieure"] = 10;
         var data = {};
+        var points = {};
         var index = 0;
 
         function sendForm(){
@@ -82,6 +83,7 @@ function validate(){
         }
 
         function validate(page){
+
           return true;
           var message = "";
            $("#"+page+" :input").each(function( ) {
@@ -125,7 +127,7 @@ function validate(){
 
 
         var labelsPromotionDan = ["Dan - PJC", "Dan - IJF", "Dan - National"];
-        var currentPage = 0;
+        var currentPage = 3;
         var instructorsInput = new ArrayInput("input_instructor_wrapper");
         var pointInput = new ArrayInput("input_point_system_wrapper");
         var pointInput2 = new ArrayInput("input_point_system_wrapper2");
@@ -135,12 +137,12 @@ function validate(){
         var katalist = new ArrayInput("input_kata_list_wrapper", 4);
         var contributionList = new ArrayInput("input_contribution_wrapper", 4);
 
-    
+
 
         $(document).ready( function(){
             setPage(currentPage);
 
-            $(".button-next-page").click(function(){createTableSummaryPoint();changePageUp();});
+            $(".button-next-page").click(function(){calculatePoints();createTableSummaryPoint();changePageUp();});
             $(".button-previous-page").click(function(){changePageDown();});
             instructorsInput.init();
             pointInput.init();
@@ -148,10 +150,10 @@ function validate(){
             sportResult.init();
             trainer.init();
 
-            createTableSummaryPoint();
+
             createInputPromotionDan();
             createInputYearActive();
-
+            createTableSummaryPoint();
             initData();
 
         } );
@@ -167,14 +169,13 @@ function validate(){
         }
 
         function createInputYearActive(){
+
           var html = "<table id='idTablePoints'><tr><th>&nbsp;</th>";
           
             var year = getCurrentYear();
             for (var i = year ; i >= yearMin; i--){
               html+="<th>" + i +"</th>";
             }
-
-
             for (var i = 0 ; i <= year - yearMin + 1; i++){
                 if (i==0){
                   html+="<tr><td>Niveau</td>";
@@ -192,7 +193,6 @@ function validate(){
               }
              html+="</tr></table>"; 
             $("#divYearActive").html(html);
-
         }
 
         function getCurrentYear(){
@@ -202,6 +202,7 @@ function validate(){
         }
 
         function createTableSummaryPoint(){
+
             var html = "<table id='idTablePoints'><tr><th>&nbsp;</th>";
             var year = getCurrentYear();
             for (var i = year ; i >= yearMin; i--){
@@ -215,11 +216,9 @@ function validate(){
                 }
                 else{
                   if(j==0){
-                    var index = "select"+(getCurrentYear()-(i+1));
-                    var key = $("#"+index).val() || "";
-                    html+="<td>"+pointYearActive[key]+"</td>";
+                    var index = getCurrentYear()-(i+1);
+                    html+="<td>"+points["year_active"][index]+"</td>";
                   }
-                    
                 }
               }
             }
@@ -228,6 +227,64 @@ function validate(){
 
             $('#idPointTableSummary').html(html);
             $('#idTablePoints tr:odd').addClass("w3-grey");
+
+        }
+
+        function calculatePoints(){
+            calculateYearsInJudo();
+            calculateParticipationKata();
+
+        }
+
+        function  calculateYearsInJudo(){
+            points["year_active"] = [];
+            var year = getCurrentYear();
+            for (var i = year;i >= yearMin; i--) {
+               var index = "select"+i;
+                var key = $("#"+index).val() || "";
+                points["year_active"][i] = pointYearActive[key];
+            }
+
+        }
+
+        function dump(obj) {
+            var out = '';
+            for (var i in obj) {
+                out += i + ": " + obj[i] + "\n";
+            }
+
+            alert(out);
+        }
+
+        function calculateParticipationKata(){
+             points["participation_kata"] = [];
+             var contestdates = $( "input[name='grade_date[]']" );
+             contestdates.each(function(index, value){
+                   var val = value.value;
+                     if(val.length>0){
+                        var d = new Date(val);
+                        var n = d.getFullYear();
+                        alert(n);
+                        }
+
+             });
+             /*for (var i = 0; i< constestdate.length ; i++){
+                 var val = constestdate[i].val();
+                 if(val.lenght>0){
+                    var d = new Date(val);
+                    var n = d.getFullYear();
+                    alert(n);
+                 }
+
+             } */
+
+            /* var year = getCurrentYear();
+             for (var i = year;i >= yearMin; i--) {
+
+                var key = $("#"+index).val() || "";
+                points["participation_kata"][i] = pointYearActive[key];
+            } */
+
         }
 
         function addStepSpan(){
@@ -247,17 +304,18 @@ function validate(){
         }
 
         function changePageUp(){
+
             if(currentPage >= pages.length - 1 ){
                 alert("congratulations, you reached the end of the form");
             }
             else{
-              collectData(pages[currentPage]);
-              if(validate(pages[currentPage])){
+              //collectData(pages[currentPage]);
+              //if(validate(pages[currentPage])){
                 changePage(pages[currentPage], pages[++currentPage]);
-              }
-              else{
-                alert(data[pages[currentPage]].message);
-              }
+              //}
+              //else{
+              //  alert(data[pages[currentPage]].message);
+              //}
             }
                 
          }
