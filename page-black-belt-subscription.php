@@ -187,7 +187,7 @@ function validate(){
 
 
         var labelsPromotionDan = ["Dan - PJC", "Dan - IJF", "Dan - National"];
-        var currentPage = 4;
+        var currentPage = 0;
         var instructorsInput = new ArrayInput("input_instructor_wrapper");
         var pointInput = new ArrayInput("input_point_system_wrapper");
         var pointInput2 = new ArrayInput("input_point_system_wrapper2");
@@ -379,7 +379,7 @@ function validate(){
                         var n = d.getFullYear();
                         var suffix = (gradetypes.get(index).value || "shiai");
                         var pts = parseInt(pointscontest.get(index).value);
-                        alert(pts);
+
                         var index_point = "participation_"+suffix;
                         var index_point_contest = "tournois_"+suffix;
 
@@ -432,7 +432,7 @@ function validate(){
                              }
                              points[categorie][n] += pointTechniques[categorie][code];
                              points[categorie][n] = Math.min(points[categorie][n], pointTechniques[categorie]['MAX']) ;
-                             //alert(categorie + " " + n + " " + points[categorie][n]);
+
                         }
                      }
                  }
