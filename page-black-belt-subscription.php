@@ -76,6 +76,7 @@ function validate(){
         pointTechniques["T4"]["Nat"] = 5;
         pointTechniques["T4"]["Int"] = 20;
         pointTechniques["T5"] = {};
+        pointTechniques["T5"]["MAX"] = 1000;
         pointTechniques["T5"]["Prov"] = 10;
         pointTechniques["T5"]["Nat"] = 15;
         pointTechniques["T5"]["Int"] = 20;
@@ -85,6 +86,7 @@ function validate(){
         pointTechniques["T6"]["Nat"] = 10;
         pointTechniques["T6"]["Int"] = 20;
         pointTechniques["T7"] = {};
+        pointTechniques["T7"]["MAX"] = 1000;
         pointTechniques["T7"]["Prov"] = 10;
         pointTechniques["T7"]["Nat"] = 15;
         pointTechniques["T7"]["Cont"] = 15;
@@ -95,7 +97,9 @@ function validate(){
         pointTechniques["T8"]["InterProv"] = 10;
         pointTechniques["T8"]["Nat"] = 15;
         pointTechniques["T8"]["Int"] = 20;
-        pointTechniques["T9"] = 30;
+        pointTechniques["T9"]= {};
+        pointTechniques["T9"]["T9"] = 30;
+        pointTechniques["T9"]["MAX"] =1000;
         pointTechniques["N2"] = {};
         pointTechniques["N2"]["MAX"] =10;
         pointTechniques["N2"]["Prov"] = 3;
@@ -183,7 +187,7 @@ function validate(){
 
 
         var labelsPromotionDan = ["Dan - PJC", "Dan - IJF", "Dan - National"];
-        var currentPage = 3;
+        var currentPage = 4;
         var instructorsInput = new ArrayInput("input_instructor_wrapper");
         var pointInput = new ArrayInput("input_point_system_wrapper");
         var pointInput2 = new ArrayInput("input_point_system_wrapper2");
@@ -287,6 +291,21 @@ function validate(){
                       if(j==4){
                         html+="<td>"+(points["participation_shiai"][index]|| "0")+"</td>";
                       }
+                       if(j==7){
+                        html+="<td>"+(points["T1"][index]|| "0")+"</td>";
+                      }
+                      if(j==9){
+                        html+="<td>"+(points["T3"][index]|| "0")+"</td>";
+                      }
+                      if(j==10){
+                        html+="<td>"+(points["T4"][index]|| "0")+"</td>";
+                      }
+                       if(j==14){
+                        html+="<td>"+(points["T7"][index]|| "0")+"</td>";
+                      }
+                       if(j==15){
+                        html+="<td>"+(points["N2"][index]|| "0")+"</td>";
+                      }
                 }
               }
             }
@@ -303,7 +322,24 @@ function validate(){
             calculateParticipationKata();
             calculatePointTechniques();
             calculatePointNonTechniques();
+            calculGrandTotal();
+        }
 
+        function calculGrandTotal(){
+            var total = 0;
+            var tc_total = 0;
+
+            for(var i in points){
+
+                for (var j in points[i]) {
+                    if (i!= 'N2' || i!='year_active'){
+                        tc_total += parseInt(points[i][j]);
+                    }
+                     total += parseInt(points[i][j]);
+                }
+            }
+            $("#total_tc_points").text(tc_total);
+            $("#total_points").text(total);
         }
 
         function  calculateYearsInJudo(){
@@ -349,10 +385,10 @@ function validate(){
 
                             if(suffix.length>0) {
                                 if (index == 0 ){
-                                    points["participation_kata"][n] = 0;
-                                    points["participation_shiai"][n] = 0;
-                                    points["tournois_kata"][n] = 0;
-                                    points["tournois_shiai"][n] = 0;
+                                    points["participation_kata"][n] =points["participation_kata"][n] || 0;
+                                    points["participation_shiai"][n] = points["participation_shiai"][n] || 0;
+                                    points["tournois_kata"][n] = points["tournois_kata"][n] || 0;
+                                    points["tournois_shiai"][n] = points["tournois_shiai"][n] || 0;
                                 }
                                  var participation = points[index_point][n];
                                  points[index_point_contest][n]+= pts;
@@ -377,8 +413,30 @@ function validate(){
             for (var i in pointTechniques) {
                 points[i] = [];
             }
-             var contestdates = $( "input[name='grade_date2[]']" );
+            var contestdates = $( "input[name='grade_date2[]']" );
+            var gradeCodes = $( "select[name='grade_code2[]']" );
 
+            contestdates.each(function(index, value){
+                 var val = value.value;
+                 if(val.length>0){
+                    var d = new Date(val);
+                    var n = d.getFullYear();
+
+                     var code =  $( "select[name='grade_code2[]'] option:selected" ).attr("value");
+                     var categorie =  $( "select[name='grade_code2[]'] option:selected" ).attr("category");
+
+                     if(code.length>0 && categorie.length>0){
+                         if (index == 0 ){
+                             for (var i in pointTechniques) {
+                                points[i][n] = points[i][n] || 0;
+                             }
+                             points[categorie][n] += pointTechniques[categorie][code];
+                             points[categorie][n] = Math.min(points[categorie][n], pointTechniques[categorie]['MAX']) ;
+                             //alert(categorie + " " + n + " " + points[categorie][n]);
+                        }
+                     }
+                 }
+            });
         }
 
         function addStepSpan(){
@@ -784,7 +842,7 @@ function validate(){
                                         <button onclick="$('#msgBoxPoint2').fadeIn();" class="w3-button w3-grey">Voir les reglements</button>
                                      <div id="input_point_system_wrapper2">
                                         <div class="duplicatable">  <p><label for="name">Points : <span class="w3-text-red">*</span>
-                                      <br><select class="w3-input" id="grade_contest2" name="grade_code2[]">
+                                      <br><select class="w3-input" id="grade_code2" name="grade_code2[]">
                                           <option value="DA" category="T1">Certification PNCE DA</option>
                                           <option value="DI" category="T1">Certification PNCE DI</option>
                                           <option value="CDev" category="T1">Certification PNCE CDev</option>
@@ -850,8 +908,8 @@ function validate(){
                                   <textarea rows="4" cols="50" name="additional_points">
 
                                   </textarea>
-                                  <input type="text" placeholder="Total Technical/Competitive Points" />
-                                  <input type="text" placeholder="Grand Total" />
+                                  <p>Total Technical/Competitive Points : <span id="total_tc_points"></span></p>
+                                   <p>Grand Total : <span id="total_points"></span></p>
 
 
                                   <div class="w3-center w3-margin-bottom">
