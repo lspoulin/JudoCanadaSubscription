@@ -34,13 +34,17 @@ function validate(){
 
 <?php get_header(); ?>
   <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri().'/w3.css';?>">
+  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri().'/dcalendar.picker.css';?>">
   <script src="<?php echo get_stylesheet_directory_uri().'/jquery-3.3.1.min.js';?>"></script>
   <script src="<?php echo get_stylesheet_directory_uri().'/object.js';?>"></script>
+  <script src="<?php echo get_stylesheet_directory_uri().'/dcalendar.picker.js';?>"></script>
+
     <script>
 
         const pages = ["idDivFormPersonalInformations", "idDivJudoCanadaInformation", "idDivCertification", "idDivGrade", "idDivTechnicalPoint", "idDivFinalPoint", "idDivIJFOnly", "idDivPayForm"];
         const yearMin = 2010;
         const labels = ["Actif en judo", "Tournois de kata", "Participation en kata", "Tournois en shiai", "Participation en Shiai", "Directeur Technique", "Assistant Entraîneur", "Certification PNCE", "Entraîneur", "Directeurs de clinique", "Participant aux cliniques", "Certification en kata", "Évaluation en kata", "Certification d'arbitre", "Arbitrage", "Bénévole de tournoi"];
+        const point_category_order = []
         const  pointYearActive = {};
         pointYearActive[""] = 0;
         pointYearActive["Ikkyu"] = 30;
@@ -107,7 +111,6 @@ function validate(){
         pointTechniques["N2"]["Nat"] = 5;
         pointTechniques["N2"]["Int"] = 5;
 
-
         var data = {};
         var points = {};
         var index = 0;
@@ -161,7 +164,7 @@ function validate(){
 
 
 
-        var prices =[[ 
+        var prices =[[
                     {type:"Shodan", prix:"275"},
                     {type:"Nidan", prix:"275"},
                     {type:"Sandan", prix:"275"},
@@ -187,7 +190,7 @@ function validate(){
 
 
         var labelsPromotionDan = ["Dan - PJC", "Dan - IJF", "Dan - National"];
-        var currentPage = 0;
+        var currentPage =3;
         var instructorsInput = new ArrayInput("input_instructor_wrapper");
         var pointInput = new ArrayInput("input_point_system_wrapper");
         var pointInput2 = new ArrayInput("input_point_system_wrapper2");
@@ -209,12 +212,13 @@ function validate(){
             pointInput2.init();
             sportResult.init();
             trainer.init();
-
-
+            $("input.date").dcalendarpicker();
             createInputPromotionDan();
             createInputYearActive();
             createTableSummaryPoint();
             initData();
+
+            $(".add_field_button").click(function(){ $("input.date").dcalendarpicker();});
 
         } );
 
@@ -585,7 +589,7 @@ function validate(){
                                   <input id="phone" name="phone" placeholder="T&eacute;l&eacute;phone" type="tel" value=""></label></p>
 
                                   <p><label for="birthdate">Date de naissance <span class="w3-text-red">*</span>
-                                    <br><input class="w3-input" id="birthdate" name="birthdate" type="date" value="">
+                                    <br><input class="w3-input date" id="birthdate" name="birthdate" type="text" value="">
                                   </label></p>
 
                                   <label for="status">Statut <span class="w3-text-red">*</span><br>
@@ -632,7 +636,7 @@ function validate(){
                                 <p><input id="instructor_name" name="instructor_name" class="w3-input" placeholder="Instructeur - Dan" type="text"  value=""></p>
                                 <p><input id="instructor_email" name="instructor_email" class="w3-input" placeholder="Instructeur email" type="email"  value=""></p>
                                  <p><label for="enrollementdate">Date de début <span class="w3-text-red">*</span>
-                                    <br><input class="w3-input" id="enrollement_date" name="enrollement_date" type="date" value="">
+                                    <br><input class="w3-input date" id="enrollement_date" name="enrollement_date" type="text" value="">
                                   </label></p>
                                  <p><label for="startingdate">Année de début du judo <span class="w3-text-red">*</span>
                                     <br><input id="starting_date" name="starting_date" class="w3-input" type="number" min="1900" max="2020"  value="1990">
@@ -668,43 +672,43 @@ function validate(){
                                 </div>
                                 <div class="w3-container">
                                <p><label for="name">Grade - Date obtenue : <span class="w3-text-red">*</span> <br>
-                                     <label>1K</label><input id="grade1K" name="grade1K" class="w3-input" type="date"  value=""><br>
-                                     <label>1D</label><input id="grade1D" name="grade1D" class="w3-input" type="date" value=""><br>
-                                     <label>2D</label><input id="grade2D" name="grade2D" class="w3-input" type="date" value=""><br>
-                                     <label>3D</label><input id="grade3D" name="grade3D" class="w3-input" type="date" value=""><br>
-                                     <label>4D</label><input id="grade4D" name="grade4D" class="w3-input" type="date" value=""><br>
-                                     <label>5D</label><input id="grade5D" name="grade5D" class="w3-input" type="date" value=""><br>
-                                     <label>6D</label><input id="grade6D" name="grade6D" class="w3-input" type="date" value=""><br>
-                                     <label>7D</label><input id="grade7D" name="grade7D" class="w3-input" type="date" value=""><br>
-                                     <label>8D</label><input id="grade8D" name="grade8D" class="w3-input" type="date" value=""><br>
+                                     <label>1K</label><input id="grade1K" name="grade1K" class="w3-input date" type="text"  value=""><br>
+                                     <label>1D</label><input id="grade1D" name="grade1D" class="w3-input date" type="text" value=""><br>
+                                     <label>2D</label><input id="grade2D" name="grade2D" class="w3-input date" type="text" value=""><br>
+                                     <label>3D</label><input id="grade3D" name="grade3D" class="w3-input date" type="text" value=""><br>
+                                     <label>4D</label><input id="grade4D" name="grade4D" class="w3-input date" type="text" value=""><br>
+                                     <label>5D</label><input id="grade5D" name="grade5D" class="w3-input date" type="text" value=""><br>
+                                     <label>6D</label><input id="grade6D" name="grade6D" class="w3-input date" type="text" value=""><br>
+                                     <label>7D</label><input id="grade7D" name="grade7D" class="w3-input date" type="text" value=""><br>
+                                     <label>8D</label><input id="grade8D" name="grade8D" class="w3-input date" type="text" value=""><br>
                                </label></p>
                                <p><label for="name">Certification d'arbitre - Date Obtenue <span class="w3-text-red">*</span> <br>
-                                     <label>Reg</label><input id="grade_reg" name="grade_reg" class="w3-input" type="date" value=""><br>
-                                     <label>Prv C</label><input id="grade_prvc" name="grade_prvc" class="w3-input" type="date" value=""><br>
-                                     <label>Prv B</label><input id="grade_prvb" name="grade_prvb" class="w3-input" type="date" value=""><br>
-                                     <label>Prv A</label><input id="grade_prva" name="grade_prva" class="w3-input" type="date" value=""><br>
-                                     <label>Nat C</label><input id="grade_natc" name="grade_natc" class="w3-input" type="date" value=""><br>
-                                     <label>Nat B</label><input id="grade_natb" name="grade_natb" class="w3-input" type="date" value=""><br>
-                                     <label>Nat A</label><input id="grade_nata" name="grade_nata" class="w3-input" type="date" value=""><br>
-                                     <label>PJU</label><input id="grade_pju" name="grade_pju" class="w3-input" type="date" value=""><br>
-                                     <label>IJF</label><input id="grade_ifj" name="grade_ifj" class="w3-input" type="date" value=""><br>
+                                     <label>Reg</label><input id="grade_reg" name="grade_reg" class="w3-input date" type="text" value=""><br>
+                                     <label>Prv C</label><input id="grade_prvc" name="grade_prvc" class="w3-input date" type="text" value=""><br>
+                                     <label>Prv B</label><input id="grade_prvb" name="grade_prvb" class="w3-input date" type="text" value=""><br>
+                                     <label>Prv A</label><input id="grade_prva" name="grade_prva" class="w3-input date" type="text" value=""><br>
+                                     <label>Nat C</label><input id="grade_natc" name="grade_natc" class="w3-input date" type="text" value=""><br>
+                                     <label>Nat B</label><input id="grade_natb" name="grade_natb" class="w3-input date" type="text" value=""><br>
+                                     <label>Nat A</label><input id="grade_nata" name="grade_nata" class="w3-input date" type="text" value=""><br>
+                                     <label>PJU</label><input id="grade_pju" name="grade_pju" class="w3-input date" type="text" value=""><br>
+                                     <label>IJF</label><input id="grade_ifj" name="grade_ifj" class="w3-input date" type="text" value=""><br>
                                      <label>Other</label><input id="grade_other" name="grade_other" class="w3-input" type="text" value=""><br>
                                </label></p>
                                <p><label for="name">NCCP PNCE <span class="w3-text-red">*</span> <br>
-                                     <label>HP Coach Certified</label><input id="grade_NCCPHPCoach" name="grade_NCCPHPCoach" class="w3-input" type="text" value=""><br>
-                                     <label>DA or Community Coach Certified</label><input id="grade_NCCPDA" name="grade_NCCPDA" class="w3-input" type="date" value=""><br>
-                                     <label>DI</label><input id="grade_NCCPDI" name="grade_NCCPDI" class="w3-input" type="date" value=""><br>
-                                     <label>CDev</label><input id="grade_NCCPCDev" name="grade_NCCPCDev" class="w3-input" type="date" value=""><br>
-                                     <label>IV</label><input id="grade_NCCPIV" name="grade_NCCPIV" class="w3-input" type="date" value=""><br>
-                                     <label>V</label><input id="grade_NCCPV" name="grade_NCCPV" class="w3-input" type="date" value=""><br>
+                                     <label>HP Coach Certified</label><input id="grade_NCCPHPCoach" name="grade_NCCPHPCoach" class="w3-input date" type="text" value=""><br>
+                                     <label>DA or Community Coach Certified</label><input id="grade_NCCPDA" name="grade_NCCPDA" class="w3-input date" type="text" value=""><br>
+                                     <label>DI</label><input id="grade_NCCPDI" name="grade_NCCPDI" class="w3-input date" type="text" value=""><br>
+                                     <label>CDev</label><input id="grade_NCCPCDev" name="grade_NCCPCDev" class="w3-input date" type="text" value=""><br>
+                                     <label>IV</label><input id="grade_NCCPIV" name="grade_NCCPIV" class="w3-input date" type="text" value=""><br>
+                                     <label>V</label><input id="grade_NCCPV" name="grade_NCCPV" class="w3-inputdate " type="text" value=""><br>
                                </label></p>
 
                                 <p><label for="name">Facilitateur de cours <span class="w3-text-red">*</span> <br>
-                                     <label>DA</label><input id="grade_facilitator_DA" name="grade_facilitator_DA" class="w3-input" type="date" value=""><br>
-                                     <label>DI</label><input id="grade_facilitator_DI" name="grade_facilitator_DI" class="w3-input" type="date" value=""><br>
-                                     <label>CDev</label><input id="grade_facilitator_Dev" name="grade_facilitator_Dev" class="w3-input" type="date" value=""><br>
-                                     <label>IV</label><input id="grade_facilitator_IV" name="grade_facilitator_IV" class="w3-input" type="date" value=""><br>
-                                     <label>V</label><input id="grade_Facilitator_V" name="grade_Facilitator_V" class="w3-input" type="date" value=""><br>
+                                     <label>DA</label><input id="grade_facilitator_DA" name="grade_facilitator_DA" class="w3-input date" type="text" value=""><br>
+                                     <label>DI</label><input id="grade_facilitator_DI" name="grade_facilitator_DI" class="w3-input date" type="text" value=""><br>
+                                     <label>CDev</label><input id="grade_facilitator_Dev" name="grade_facilitator_Dev" class="w3-input date" type="text" value=""><br>
+                                     <label>IV</label><input id="grade_facilitator_IV" name="grade_facilitator_IV" class="w3-input date" type="text" value=""><br>
+                                     <label>V</label><input id="grade_Facilitator_V" name="grade_Facilitator_V" class="w3-input date" type="text" value=""><br>
                                </label></p>
 
                                   <div class="w3-center w3-margin-bottom">
@@ -724,7 +728,8 @@ function validate(){
                                 </div>
                                 <div class="w3-container">
                                   <div class="w3-container w3-modal w3-display-middle" id="msgBoxPoint1">
-                                    <div class="w3-container w3-card-4 w3-modal-content"><h3>REGISTRE DES POINTS SHIAI ET KATA</h3>
+                                    <div class="w3-container w3-card-4 w3-modal-content" style="margin : 0 auto;">
+                                    <h3>REGISTRE DES POINTS SHIAI ET KATA</h3>
                                     <p><small>
                                     <strong>SHIAI</strong><br>
                                     Ippon = 10 pts<br>
@@ -738,17 +743,18 @@ function validate(){
                                     </small></p>
                                     <button onclick="$('#msgBoxPoint1').fadeOut();" class="w3-button w3-grey">Fermer</button>
                                     </div>
-                                    </div>
+                                  </div>
                                         <button onclick="$('#msgBoxPoint1').fadeIn();" class="w3-button w3-grey">Voir les reglements</button>
                                     </div>
                                   
                                   <div id="input_point_system_wrapper">
                                         <div class="duplicatable"> <p><label for="startingdate">Système de pointage : <span class="w3-text-red">*</span>
-                                      <br><input class="w3-input" id="grade_date" name="grade_date[]" type="date" value="">
-                                      <br><select name="grade_type[]" id="grade_type">
+                                      <br><input class="w3-input date" id="grade_date" name="grade_date[]" type="text" value="" onfocus="$('input.date').dcalendarpicker();">
+                                      <p><select name="grade_type[]" id="grade_type">
                                           <option value="shiai">Shiai</option>
                                           <option value="kata">Kata</option>
                                           </select>
+                                      </p>
                                       <br><input class="w3-input" id="contest_location" name="contest_location[]" placeholder="Tournoi et Lieu" type="text" value="">
                                       <br><input class="w3-input" id="adversary" name="adversary[]" placeholder="Adversaire/Partenaire (Uke/Tori)" type="text" value="">
                                       <br><input class="w3-input" id="grade" name="grade[]" placeholder="Grade" type="text" value="">
@@ -780,7 +786,8 @@ function validate(){
                                 </div>
                                 <div class="w3-container">
                                   <div class="w3-container w3-modal w3-display-middle" id="msgBoxPoint2">
-                                    <div class="w3-container w3-card-4 w3-modal-content" ><h3>REGISTRE DES POINTS TECHNIQUE ET NON-TECHNIQUE</h3>
+                                    <div class="w3-container w3-card-4 w3-modal-content" style="margin : 0 auto;">
+                                        <h3>REGISTRE DES POINTS TECHNIQUE ET NON-TECHNIQUE</h3>
                                       <p> <small>
                                         <b>POINTS TECHNIQUE</b><br>
                                         Certification PNCE (Code T1) (MAXIMUM DE 30pts/année)<br>
@@ -879,13 +886,13 @@ function validate(){
                                           <option value="Nat" category="N2"> Bénévole de tournoi Nat</option>
                                           <option value="Int" category="N2"> Bénévole de tournoi Int</option>
                                           </select>
-                                      <br><input class="w3-input" id="grade_date2" name="grade_date2[]" type="date" value="">
+                                      <br><input class="w3-input date" id="grade_date2" name="grade_date2[]" type="text" value="" onfocus="$('input.date').dcalendarpicker();">
                                       <br><input class="w3-input" id="grade_contest_name2" name="grade_contest_name2[]" placeholder="Tournoi" type="text" value="">
                                       <br><input class="w3-input" id="grade_contest_location2" name="grade_contest_location2[]" placeholder="Lieu" type="text" value="">
                                       <br><input class="w3-input" id="grade_contest_position2" name="grade_contest_position2[]" placeholder="Position" type="text" value="">
                                       <br><input class="w3-input" id="grade_contest_level2" name="grade_contest_level2[]" placeholder="Niveau" type="text" value="">
                                       </label></p> </div>
-                                      <button class="add_field_button w3-button">Ajouter</button>
+                                      <button class="add_field_button w3-button" >Ajouter</button>
                                     </div>
 
                                   <div class="w3-center w3-margin-bottom">
