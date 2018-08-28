@@ -212,24 +212,22 @@ function validate(){
             pointInput2.init();
             sportResult.init();
             trainer.init();
-            $("input.date").dcalendarpicker();
+
             createInputPromotionDan();
             createInputYearActive();
             createTableSummaryPoint();
             initData();
-
-            $(".add_field_button").click(function(){ $("input.date").dcalendarpicker();});
-
+            $("input.date").dcalendarpicker();
         } );
 
         function createInputPromotionDan(){
           var html = "";
             for (var i = 1; i <= 9; i++)
               for (var j=0; j < 3 ; j++)
-                html += "<input type='date' placeholder='"+i + ((i==1)?"er ":"ieme ") + labelsPromotionDan[j]+"'/>";
+                html += "<input type='text' class='w3-input date' placeholder='"+i + ((i==1)?"er ":"ieme ") + labelsPromotionDan[j]+"'/>";
 
             $("#idDivPromotionDanInput").html(html);
-
+            $("input.date").dcalendarpicker();
         }
 
         function createInputYearActive(){
@@ -724,7 +722,7 @@ function validate(){
                             <div id="idDivGrade" class="w3-container w3-margin-left w3-card-4" style="display:none">
 
                                 <div class="w3-container w3-green">
-                                  <h2>Formulaire de grade</h2>
+                                  <h2>Point en tournois</h2>
                                 </div>
                                 <div class="w3-container">
                                   <div class="w3-container w3-modal w3-display-middle" id="msgBoxPoint1">
@@ -749,7 +747,7 @@ function validate(){
                                   
                                   <div id="input_point_system_wrapper">
                                         <div class="duplicatable"> <p><label for="startingdate">Système de pointage : <span class="w3-text-red">*</span>
-                                      <br><input class="w3-input date" id="grade_date" name="grade_date[]" type="text" value="" onfocus="$('input.date').dcalendarpicker();">
+                                      <br><input class="w3-input date" id="grade_date" name="grade_date[]" type="text" value="" onfocus="$('input.date').dcalendarpicker();" placeholder="Date du tournois">
                                       <p><select name="grade_type[]" id="grade_type">
                                           <option value="shiai">Shiai</option>
                                           <option value="kata">Kata</option>
@@ -782,7 +780,7 @@ function validate(){
                                 <div class="w3-card-4 ">
 
                                 <div class="w3-container w3-green">
-                                  <h2>Formulaire de grade</h2>
+                                  <h2>Points techniques/non-techniques</h2>
                                 </div>
                                 <div class="w3-container">
                                   <div class="w3-container w3-modal w3-display-middle" id="msgBoxPoint2">
@@ -886,7 +884,7 @@ function validate(){
                                           <option value="Nat" category="N2"> Bénévole de tournoi Nat</option>
                                           <option value="Int" category="N2"> Bénévole de tournoi Int</option>
                                           </select>
-                                      <br><input class="w3-input date" id="grade_date2" name="grade_date2[]" type="text" value="" onfocus="$('input.date').dcalendarpicker();">
+                                      <br><input class="w3-input date" id="grade_date2" name="grade_date2[]" type="text" placeholder="Date de l'événement" value="" onfocus="$('input.date').dcalendarpicker();">
                                       <br><input class="w3-input" id="grade_contest_name2" name="grade_contest_name2[]" placeholder="Tournoi" type="text" value="">
                                       <br><input class="w3-input" id="grade_contest_location2" name="grade_contest_location2[]" placeholder="Lieu" type="text" value="">
                                       <br><input class="w3-input" id="grade_contest_position2" name="grade_contest_position2[]" placeholder="Position" type="text" value="">
