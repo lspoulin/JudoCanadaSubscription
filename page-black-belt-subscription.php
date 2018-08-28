@@ -725,8 +725,8 @@ function validate(){
                                   <h2>Point en tournois</h2>
                                 </div>
                                 <div class="w3-container">
-                                  <div class="w3-container w3-modal w3-display-middle" id="msgBoxPoint1">
-                                    <div class="w3-container w3-card-4 w3-modal-content" style="margin : 0 auto;">
+                                  <div class="w3-container w3-modal" id="msgBoxPoint1">
+                                    <div class="w3-container w3-card-4 w3-modal-content" style="position: sticky;top: 50%;left: 50%; transform: translate(-50%, -50%);">
                                     <h3>REGISTRE DES POINTS SHIAI ET KATA</h3>
                                     <p><small>
                                     <strong>SHIAI</strong><br>
@@ -783,8 +783,8 @@ function validate(){
                                   <h2>Points techniques/non-techniques</h2>
                                 </div>
                                 <div class="w3-container">
-                                  <div class="w3-container w3-modal w3-display-middle" id="msgBoxPoint2">
-                                    <div class="w3-container w3-card-4 w3-modal-content" style="margin : 0 auto;">
+                                  <div class="w3-container w3-modal" id="msgBoxPoint2">
+                                    <div class="w3-container w3-card-4 w3-modal-content" style="position: sticky;">
                                         <h3>REGISTRE DES POINTS TECHNIQUE ET NON-TECHNIQUE</h3>
                                       <p> <small>
                                         <b>POINTS TECHNIQUE</b><br>
