@@ -151,6 +151,17 @@ function validate(){
         var points = {};
         var index = 0;
 
+        function sendMail(){
+            $.ajax({
+              type: "POST",
+              url: "<?php echo get_stylesheet_directory_uri().'/page-black-belt-subscription.php';?>",
+              data: {type: "email"},
+              success: function(response) {
+                  alert( "success " + response);
+                }
+            });
+        }
+
         function sendForm(){
           var url = 'http://example.com/vote/' + Username;
           var form = $('<form action="' + url + '" method="post">' +
@@ -288,17 +299,11 @@ function validate(){
                     
                     html+="<option value=\""+key+"\">"+key+"</option>";
                   } 
-                  html+="</select></td>"; 
+                  html+="</select></td>";
                 }
               }
              html+="</tr></table>"; 
             $("#divYearActive").html(html);
-        }
-
-        function getCurrentYear(){
-          var dt = new Date();
-          var year = dt.getYear() + 1900;
-          return year;
         }
 
         function createTableSummaryPoint(){
@@ -490,50 +495,6 @@ function validate(){
             }
                 
          }
-
-
-        function changePageDown(){
-             if(currentPage <= 0){
-                alert("Wow something went wrong body");
-            }
-            else
-                changePage(pages[currentPage], pages[--currentPage]);
-         }
-
-        function changePage(idPage, idNextPage){
-                animate(idPage, idNextPage);
-                scrollToDiv("primary");
-                addStepSpan();
-        }
-
-        function setPage(pageId) {
-             currentPage = pageId;
-
-             for(var i=0; i<= pages.length ; i++){
-
-                if(i == currentPage)
-                    $('#'+ pages[i]).show();
-                else
-                    $('#'+ pages[i]).hide();
-             }
-             addStepSpan();
-        }
-
-        function animate(idPage, idNextPage) {
-             $('#'+idPage).fadeOut(1000, function(){
-                    $('#'+idNextPage).fadeIn();
-                    });
-        }
-        function scrollToDiv(div){
-          $('html, body').animate({
-                    scrollTop: $("#"+div).offset().top
-                }, 'slow');
-        }
-
-        function scrollToPosition(n){
-           $('html, body').animate({scrollTop:n}, 'slow');
-        }
-
 
     </script>
     <style>
