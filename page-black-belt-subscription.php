@@ -43,8 +43,6 @@ function validate(){
   <script src="<?php echo get_stylesheet_directory_uri().'/dcalendar.picker.js';?>"></script>
 
     <script>
-
-
         var data = {};
         var points = {};
         var index = 0;
@@ -100,7 +98,6 @@ function validate(){
           form.submit();
         }
 
-
         function initData(){
           for (index = 0; index < pages.length ; index++){
             data[pages[index]] = {};
@@ -122,7 +119,6 @@ function validate(){
         }
 
         function validate(page){
-
           return true;
           var message = "";
            $("#"+page+" :input").each(function( ) {
@@ -202,12 +198,10 @@ function validate(){
 
               }
             }
-
             html +="</tr></table>";
 
             $('#idPointTableSummary').html(html);
             $('#idTablePoints tr:odd').addClass("w3-grey");
-
         }
 
         function calculatePoints(){
@@ -243,7 +237,6 @@ function validate(){
                 var key = $("#"+index).val() || "";
                 points["year_active"][i] = pointYearActive[key];
             }
-
         }
 
         function dump(obj) {
@@ -251,49 +244,44 @@ function validate(){
             for (var i in obj) {
                 out += i + ": " + obj[i] + "\n";
             }
-
             alert(out);
         }
 
         function calculateParticipationKata(){
-             points["participation_kata"] = [];
-             points["participation_shiai"] = [];
-             points["tournois_shiai"] = [];
-             points["tournois_kata"] = [];
-             var contestdates = $( "input[name='grade_date[]']" );
-             var pointscontest = $( "input[name='points[]']" );
-             var gradetypes = $( "select[name='grade_type[]']" );
+            points["participation_kata"] = [];
+            points["participation_shiai"] = [];
+            points["tournois_shiai"] = [];
+            points["tournois_kata"] = [];
+            var contestdates = $( "input[name='grade_date[]']" );
+            var pointscontest = $( "input[name='points[]']" );
+            var gradetypes = $( "select[name='grade_type[]']" );
 
-             contestdates.each(function(index, value){
+            contestdates.each(function(index, value){
+                var val = value.value;
+                if(val.length>0){
+                    var d = new Date(val);
+                    var n = d.getFullYear();
+                    var suffix = (gradetypes.get(index).value || "shiai");
+                    var pts = parseInt(pointscontest.get(index).value);
 
-                   var val = value.value;
-                     if(val.length>0){
-                        var d = new Date(val);
-                        var n = d.getFullYear();
-                        var suffix = (gradetypes.get(index).value || "shiai");
-                        var pts = parseInt(pointscontest.get(index).value);
+                    var index_point = "participation_"+ suffix;
+                    var index_point_contest = "tournois_"+ suffix;
 
-                        var index_point = "participation_"+suffix;
-                        var index_point_contest = "tournois_"+suffix;
+                    if(suffix.length>0) {
+                        if (index == 0 ){
+                            points["participation_kata"][n] =points["participation_kata"][n] || 0;
+                            points["participation_shiai"][n] = points["participation_shiai"][n] || 0;
+                            points["tournois_kata"][n] = points["tournois_kata"][n] || 0;
+                            points["tournois_shiai"][n] = points["tournois_shiai"][n] || 0;
+                        }
+                         var participation = points[index_point][n];
+                         points[index_point_contest][n]+= pts;
 
-                            if(suffix.length>0) {
-                                if (index == 0 ){
-                                    points["participation_kata"][n] =points["participation_kata"][n] || 0;
-                                    points["participation_shiai"][n] = points["participation_shiai"][n] || 0;
-                                    points["tournois_kata"][n] = points["tournois_kata"][n] || 0;
-                                    points["tournois_shiai"][n] = points["tournois_shiai"][n] || 0;
-                                }
-                                 var participation = points[index_point][n];
-                                 points[index_point_contest][n]+= pts;
-
-                                 if(participation < 60){
-                                     var participation = Math.min(60, participation + 5);
-                                 }
-                                 points[index_point][n] = participation;
-
-
-                             }
-
+                         if(participation < 60){
+                             var participation = Math.min(60, participation + 5);
+                         }
+                         points[index_point][n] = participation;
+                     }
                 }
              });
         }
