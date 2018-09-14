@@ -1,7 +1,7 @@
 <?php
  
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
-    //echo "request is a post "; 
+    //echo "request is a post ";
     $type = $_POST['type']; 
     switch ($type) { 
         case 'email': 
@@ -15,14 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } 
  
 function sendEmail(){ 
-    echo "send email please setup the smtp server"; 
-    $msg = "First line of text\nSecond line of text"; 
+    echo "send email please setup the smtp server";
+    $msg = "First line of text\nSecond line of text";
     // use wordwrap() if lines are longer than 70 characters 
     $msg = wordwrap($msg,70); 
     // send email 
     /*ini_set('SMTP','myserver'); 
     ini_set('smtp_port',25); 
-    mail("lspoulin@gmail.com","My subject",$msg); 
+    mail("lspoulin@gmail.com","My subject",$msg);
      */ 
 } 
 
@@ -41,75 +41,111 @@ function validate(){
 
     <script>
 
-        const pages = ["idDivFormPersonalInformations", "idDivJudoCanadaInformation", "idDivCertification", "idDivGrade", "idDivTechnicalPoint", "idDivFinalPoint", "idDivIJFOnly", "idDivPayForm"];
+        const pages = ["idDivFormPersonalInformations",
+                        "idDivJudoCanadaInformation",
+                        "idDivCertification",
+                        "idDivGrade",
+                        "idDivTechnicalPoint",
+                        "idDivFinalPoint",
+                        "idDivIJFOnly",
+                        "idDivPayForm"
+                        ];
         const yearMin = 2010;
-        const labels = ["Actif en judo", "Tournois de kata", "Participation en kata", "Tournois en shiai", "Participation en Shiai", "Directeur Technique", "Assistant Entraîneur", "Certification PNCE", "Entraîneur", "Directeurs de clinique", "Participant aux cliniques", "Certification en kata", "Évaluation en kata", "Certification d'arbitre", "Arbitrage", "Bénévole de tournoi"];
+        const labels = [{label:"Actif en judo", type:"year_active"},
+                        {label:"Tournois de kata", type:"tournois_kata"},
+                        {label:"Participation en kata", type:"participation_kata"},
+                        {label:"Tournois en shiai", type:"tournois_shiai"},
+                        {label:"Participation en Shiai", type:"participation_shiai"},
+                        {label:"Certification PNCE", type:""},
+                        {label:"Directeur Technique", type:"T9"},
+                        {label:"Assistant Entraîneur", type:"T2"},
+                        {label:"Entraîneur", type:"T2"},
+                        {label:"Directeurs de clinique", type:"T3"},
+                        {label:"Participant aux cliniques", type:"T4"},
+                        {label:"Certification en kata", type:"T7"},
+                        {label:"Évaluation en kata", type:"T8"},
+                        {label:"Certification d'arbitre", type:"T5"},
+                        {label:"Arbitrage", type:"T7"},
+                        {label:"Bénévole de tournoi", type:"N2"}];
         const point_category_order = []
-        const  pointYearActive = {};
-        pointYearActive[""] = 0;
-        pointYearActive["Ikkyu"] = 30;
-        pointYearActive["Shodan"] = 20;
-        pointYearActive["Nidan"] = 20;
-        pointYearActive["Sandan"] = 10;
-        pointYearActive["Superieure"] = 10;
-
-        const pointTechniques ={};
-        pointTechniques["T1"] = {};
-        pointTechniques["T1"]["MAX"] =30;
-        pointTechniques["T1"]["DA"] = 5;
-        pointTechniques["T1"]["DI"] = 10;
-        pointTechniques["T1"]["CDev"] = 20;
-        pointTechniques["T1"]["IV"] = 20;
-        pointTechniques["T1"]["V"] = 20;
-        pointTechniques["T2"] = {};
-        pointTechniques["T2"]["MAX"] =30;
-        pointTechniques["T2"]["DA"] = 5;
-        pointTechniques["T2"]["DI"] = 10;
-        pointTechniques["T2"]["CDev"] = 20;
-        pointTechniques["T2"]["IV"] = 20;
-        pointTechniques["T2"]["V"] = 20;
-        pointTechniques["T3"] = {};
-        pointTechniques["T3"]["MAX"] =30;
-        pointTechniques["T3"]["Prov"] = 10;
-        pointTechniques["T3"]["InterProv"] = 15;
-        pointTechniques["T3"]["Nat"] = 15;
-        pointTechniques["T3"]["Int"] = 20;
-        pointTechniques["T4"] = {};
-        pointTechniques["T4"]["MAX"] =20;
-        pointTechniques["T4"]["Prov"] = 5;
-        pointTechniques["T4"]["Nat"] = 5;
-        pointTechniques["T4"]["Int"] = 20;
-        pointTechniques["T5"] = {};
-        pointTechniques["T5"]["MAX"] = 1000;
-        pointTechniques["T5"]["Prov"] = 10;
-        pointTechniques["T5"]["Nat"] = 15;
-        pointTechniques["T5"]["Int"] = 20;
-        pointTechniques["T6"] = {};
-        pointTechniques["T6"]["MAX"] = 60;
-        pointTechniques["T6"]["Prov"] = 5;
-        pointTechniques["T6"]["Nat"] = 10;
-        pointTechniques["T6"]["Int"] = 20;
-        pointTechniques["T7"] = {};
-        pointTechniques["T7"]["MAX"] = 1000;
-        pointTechniques["T7"]["Prov"] = 10;
-        pointTechniques["T7"]["Nat"] = 15;
-        pointTechniques["T7"]["Cont"] = 15;
-        pointTechniques["T7"]["Int"] = 20;
-        pointTechniques["T8"] = {};
-        pointTechniques["T8"]["MAX"] =30;
-        pointTechniques["T8"]["Prov"] = 5;
-        pointTechniques["T8"]["InterProv"] = 10;
-        pointTechniques["T8"]["Nat"] = 15;
-        pointTechniques["T8"]["Int"] = 20;
-        pointTechniques["T9"]= {};
-        pointTechniques["T9"]["T9"] = 30;
-        pointTechniques["T9"]["MAX"] =1000;
-        pointTechniques["N2"] = {};
-        pointTechniques["N2"]["MAX"] =10;
-        pointTechniques["N2"]["Prov"] = 3;
-        pointTechniques["N2"]["InterProv"] = 4;
-        pointTechniques["N2"]["Nat"] = 5;
-        pointTechniques["N2"]["Int"] = 5;
+        const pointYearActive = {
+            "":0,
+            "Ikkyu":30,
+            "Shodan":20,
+            "Nidan":20,
+            "Sandan":10,
+            "Superieure":10
+        };
+        const pointTechniques ={
+          "T1":{
+              MAX:30,
+              DA: 5,
+              DI: 10,
+              CDev:20,
+              IV:20,
+              V:20
+          },
+          "T2":{
+              MAX:30,
+              DA: 5,
+              DI: 10,
+              CDev:20,
+              IV:20,
+              V:20
+          },
+          "T3":{
+              MAX:30,
+              Prov:10,
+              InterProv: 15,
+              Nat: 15,
+              Int:20
+          },
+         "T4":{
+              MAX:20,
+              Prov:5,
+              Nat: 5,
+              Int: 20
+          },
+          "T5":{
+              MAX:1000,
+              Prov:10,
+              Nat: 15,
+              Int: 20
+          },
+          "T6":{
+              MAX:60,
+              Prov:5,
+              Nat: 10,
+              Int: 20
+          },
+          "T7":{
+              MAX:1000,
+              Prov:10,
+              Nat: 15,
+              Cont: 15,
+              Int: 20
+          },
+            "T8":{
+              MAX:30,
+              Prov:5,
+              InterProv: 10,
+              Nat: 15,
+              Int: 20
+          },
+          "T9":{
+              MAX:1000,
+              T9:30
+          },
+          "N2":{
+              MAX:10,
+              Prov:3,
+              InterProv: 4,
+              Nat: 5,
+              Int: 5
+          }
+        };
+        const rules_tournament = "<h3>REGISTRE DES POINTS SHIAI ET KATA</h3><p><small><strong>SHIAI</strong><br>Ippon = 10 pts<br>Wazari = 7 pts <br><strong>KATA</strong> <br>Les points seront attribués à 2 points de moins que le classement de leurs équipe.<br><strong>KATA et SHIAI</strong><br>5 points pour participation <br></small></p>";
+        const rules_technical_points = "<h3>REGISTRE DES POINTS TECHNIQUE ET NON-TECHNIQUE</h3><p> <small><b>POINTS TECHNIQUE</b><br>Certification PNCE (Code T1) (MAXIMUM DE 30pts/année)<br>DA - 5 points<br>DI - 10 points<br>CDev - 20 points<br>IV - 20 points<br>V - 20 points<br>Entraîneur (PNCE Certifié avec min. de 120h/année) (Code T2) (MAXIMUM DE 30pts/année)<br>DA - 5 points<br>DI - 10 points<br>CDev - 20 points<br>IV - 20 points<br>V - 20 points<br>Développement de club - Sensei - minimum de 25 membres (Code T9)<br>30 points/année<br>Directeur de Clinique (Code T3) (MAXIMUM DE 30pts/année)<br>Prov - 10<br>InterProv - 15 <br>Nat - 15<br>Int\'l - 20<br>Participant aux cliniques (Code T4) (MAXIMUM DE 20pts/année)<br>Prov - 5<br>Nat - 5<br>Int\'l - 5<br>Certification d\'arbitre (Code T5)<br>Prov - 10<br>Nat - 15<br>Int\'l - 20/20/20<br>Arbitrage (Code T6) (MAXIMUM DE 60pts/année)<br>Prov - 5 (MAXIMUM DE 25pts/année)<br>Nat - 10 (MAXIMUM DE 20pts/année)<br>Int\'l - 20<br>Certification de kata (Code T7)<br>Prov - 10<br>Nat - 15<br>Cont - 15<br>Int\'l - 20/20/20<br>Activité de Kata (Code T8) (MAXIMUM DE 30pts/année)<br>Prov - 5<br>InterProv - 10<br>Nat - 15<br>Int\'l - 20<br><br><b>POINTS NON-TECHNIQUE</b><br>Actif en judo (Code N1)<br>1kyu - 30 <br>1D/2D - 20 <br>3D+ - 10  <br>Bénévole de tournoi (Code N2) (MAXIMUM DE 10pts/année) <br>Prov - 3 <br>InterProv - 4 <br>Nat - 5 <br>Int\'l - 5 <br> </small></p>";
 
         var data = {};
         var points = {};
@@ -123,7 +159,7 @@ function validate(){
           $('body').append(form);
           form.submit();
         }
-        
+
 
         function initData(){
           for (index = 0; index < pages.length ; index++){
@@ -218,6 +254,8 @@ function validate(){
             createTableSummaryPoint();
             initData();
             $("input.date").dcalendarpicker();
+            $("#rule_technical_points").html(rules_technical_points);
+            $("#rules_tournament").html(rules_tournament);
         } );
 
         function createInputPromotionDan(){
@@ -264,51 +302,30 @@ function validate(){
         }
 
         function createTableSummaryPoint(){
-
             var html = "<table id='idTablePoints'><tr><th>&nbsp;</th>";
             var year = getCurrentYear();
             for (var i = year ; i >= yearMin; i--){
               html+="<th>" + i +"</th>";
             }
+
             for(var j= 0 ; j < labels.length ; j++){
               html+="</tr><tr>";
+              let label =  labels[j].label;
+              let type = labels[j].type;
+
               for (var i = 0 ; i <= year - yearMin + 1; i++){
                 if (i==0){
-                  html+="<td>" + labels[j] +"</td>";
+                  html+="<td>" + label +"</td>";
+                  break;
                 }
-                else{
-                     var index = getCurrentYear()-(i-1);
-                      if(j==0){
-                        html+="<td>"+points["year_active"][index]+"</td>";
-                      }
-                      if(j==1){
-                        html+="<td>"+(points["tournois_kata"][index]|| "0")+"</td>";
-                      }
-                      if(j==2){
-                        html+="<td>"+(points["participation_kata"][index]|| "0")+"</td>";
-                      }
-                      if(j==3){
-                        html+="<td>"+(points["tournois_shiai"][index]|| "0")+"</td>";
-                      }
-                      if(j==4){
-                        html+="<td>"+(points["participation_shiai"][index]|| "0")+"</td>";
-                      }
-                       if(j==7){
-                        html+="<td>"+(points["T1"][index]|| "0")+"</td>";
-                      }
-                      if(j==9){
-                        html+="<td>"+(points["T3"][index]|| "0")+"</td>";
-                      }
-                      if(j==10){
-                        html+="<td>"+(points["T4"][index]|| "0")+"</td>";
-                      }
-                       if(j==14){
-                        html+="<td>"+(points["T7"][index]|| "0")+"</td>";
-                      }
-                       if(j==15){
-                        html+="<td>"+(points["N2"][index]|| "0")+"</td>";
-                      }
+                let index = getCurrentYear()-(i-1);
+                let point = 0;
+                if(typeof points[type] !== 'undefined' && typeof points[type][index] !== 'undefined'){
+                   point =  parseInt(points[type][index]);
+                   alert(point);
                 }
+                html+="<td>"+point +"</td>";
+
               }
             }
 
@@ -727,18 +744,7 @@ function validate(){
                                 <div class="w3-container">
                                   <div class="w3-container w3-modal" id="msgBoxPoint1">
                                     <div class="w3-container w3-card-4 w3-modal-content" style="position: sticky;top: 50%;left: 50%; transform: translate(-50%, -50%);">
-                                    <h3>REGISTRE DES POINTS SHIAI ET KATA</h3>
-                                    <p><small>
-                                    <strong>SHIAI</strong><br>
-                                    Ippon = 10 pts<br>
-                                    Wazari = 7 pts <br>
-
-                                    <strong>KATA</strong> <br>
-                                    Les points seront attribués à 2 points de moins que le classement de leurs équipe.<br>
-
-                                    <strong>KATA et SHIAI</strong><br>
-                                    5 points pour participation <br>
-                                    </small></p>
+                                    <div id="rules_tournament"></div>
                                     <button onclick="$('#msgBoxPoint1').fadeOut();" class="w3-button w3-grey">Fermer</button>
                                     </div>
                                   </div>
@@ -785,62 +791,7 @@ function validate(){
                                 <div class="w3-container">
                                   <div class="w3-container w3-modal" id="msgBoxPoint2">
                                     <div class="w3-container w3-card-4 w3-modal-content" style="position: sticky;">
-                                        <h3>REGISTRE DES POINTS TECHNIQUE ET NON-TECHNIQUE</h3>
-                                      <p> <small>
-                                        <b>POINTS TECHNIQUE</b><br>
-                                        Certification PNCE (Code T1) (MAXIMUM DE 30pts/année)<br>
-                                        DA - 5 points<br>
-                                        DI - 10 points<br>
-                                        CDev - 20 points<br>
-                                        IV - 20 points<br>
-                                        V - 20 points<br>
-                                        Entraîneur (PNCE Certifié avec min. de 120h/année) (Code T2) (MAXIMUM DE 30pts/année)<br>
-                                        DA - 5 points<br>
-                                        DI - 10 points<br>
-                                        CDev - 20 points<br>
-                                        IV - 20 points<br>
-                                        V - 20 points<br>
-                                        Développement de club - Sensei - minimum de 25 membres (Code T9)<br>
-                                        30 points/année<br>
-                                        Directeur de Clinique (Code T3) (MAXIMUM DE 30pts/année)<br>
-                                        Prov - 10<br>
-                                        InterProv - 15 <br>
-                                        Nat - 15<br>
-                                        Int'l - 20<br>
-                                        Participant aux cliniques (Code T4) (MAXIMUM DE 20pts/année)<br>
-                                        Prov - 5<br>
-                                        Nat - 5<br>
-                                        Int'l - 5<br>
-                                        Certification d'arbitre (Code T5)<br>
-                                        Prov - 10<br>
-                                        Nat - 15<br>
-                                        Int'l - 20/20/20<br>
-                                        Arbitrage (Code T6) (MAXIMUM DE 60pts/année)<br>
-                                        Prov - 5 (MAXIMUM DE 25pts/année)<br>
-                                        Nat - 10 (MAXIMUM DE 20pts/année)<br>
-                                        Int'l - 20<br>
-                                        Certification de kata (Code T7)<br>
-                                        Prov - 10<br>
-                                        Nat - 15<br>
-                                        Cont - 15<br>
-                                        Int'l - 20/20/20<br>
-                                        Activité de Kata (Code T8) (MAXIMUM DE 30pts/année)<br>
-                                        Prov - 5<br>
-                                        InterProv - 10<br>
-                                        Nat - 15<br>
-                                        Int'l - 20<br><br>
-
-                                        <b>POINTS NON-TECHNIQUE</b><br>
-                                        Actif en judo (Code N1)<br>
-                                        1kyu - 30 <br>
-                                        1D/2D - 20 <br>
-                                        3D+ - 10  <br>
-                                        Bénévole de tournoi (Code N2) (MAXIMUM DE 10pts/année) <br>
-                                        Prov - 3 <br>
-                                        InterProv - 4 <br>
-                                        Nat - 5 <br>
-                                        Int'l - 5 <br> </small>
-                                        </p>
+                                        <div id="rule_technical_points"></div>
                                         <button onclick="$('#msgBoxPoint2').fadeOut();" class="w3-button w3-grey">Fermer</button>
                                     </div>
                                   </div>
@@ -909,7 +860,7 @@ function validate(){
                                 <div class="w3-container">
                                   <div id="idPointTableSummary">
                                   </div>
-                                  <p><label for="name">Si vous avez d'autres points à ajouter, veuillez les énumérer ci-dessous<span class="w3-text-red">*</span> <br>
+                                  <p><label for="name">Si vous avez d'autres points à ajouter, veuillez les énumérer ci-dessous<span class="w3-text-red">*</span> </label></p><br>
                                   <textarea rows="4" cols="50" name="additional_points">
 
                                   </textarea>
