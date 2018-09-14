@@ -146,10 +146,63 @@ function validate(){
         };
         const rules_tournament = "<h3>REGISTRE DES POINTS SHIAI ET KATA</h3><p><small><strong>SHIAI</strong><br>Ippon = 10 pts<br>Wazari = 7 pts <br><strong>KATA</strong> <br>Les points seront attribués à 2 points de moins que le classement de leurs équipe.<br><strong>KATA et SHIAI</strong><br>5 points pour participation <br></small></p>";
         const rules_technical_points = "<h3>REGISTRE DES POINTS TECHNIQUE ET NON-TECHNIQUE</h3><p> <small><b>POINTS TECHNIQUE</b><br>Certification PNCE (Code T1) (MAXIMUM DE 30pts/année)<br>DA - 5 points<br>DI - 10 points<br>CDev - 20 points<br>IV - 20 points<br>V - 20 points<br>Entraîneur (PNCE Certifié avec min. de 120h/année) (Code T2) (MAXIMUM DE 30pts/année)<br>DA - 5 points<br>DI - 10 points<br>CDev - 20 points<br>IV - 20 points<br>V - 20 points<br>Développement de club - Sensei - minimum de 25 membres (Code T9)<br>30 points/année<br>Directeur de Clinique (Code T3) (MAXIMUM DE 30pts/année)<br>Prov - 10<br>InterProv - 15 <br>Nat - 15<br>Int\'l - 20<br>Participant aux cliniques (Code T4) (MAXIMUM DE 20pts/année)<br>Prov - 5<br>Nat - 5<br>Int\'l - 5<br>Certification d\'arbitre (Code T5)<br>Prov - 10<br>Nat - 15<br>Int\'l - 20/20/20<br>Arbitrage (Code T6) (MAXIMUM DE 60pts/année)<br>Prov - 5 (MAXIMUM DE 25pts/année)<br>Nat - 10 (MAXIMUM DE 20pts/année)<br>Int\'l - 20<br>Certification de kata (Code T7)<br>Prov - 10<br>Nat - 15<br>Cont - 15<br>Int\'l - 20/20/20<br>Activité de Kata (Code T8) (MAXIMUM DE 30pts/année)<br>Prov - 5<br>InterProv - 10<br>Nat - 15<br>Int\'l - 20<br><br><b>POINTS NON-TECHNIQUE</b><br>Actif en judo (Code N1)<br>1kyu - 30 <br>1D/2D - 20 <br>3D+ - 10  <br>Bénévole de tournoi (Code N2) (MAXIMUM DE 10pts/année) <br>Prov - 3 <br>InterProv - 4 <br>Nat - 5 <br>Int\'l - 5 <br> </small></p>";
-
+        const prices =[[
+                    {type:"Shodan", prix:"275"},
+                    {type:"Nidan", prix:"275"},
+                    {type:"Sandan", prix:"275"},
+                    {type:"Yondan", prix:"275"},
+                    {type:"Godan", prix:"275"},
+                    {type:"Rokudan", prix:"275"},
+                    {type:"Shichidan", prix:"275"},
+                    {type:"Hachidan", prix:"275"},
+                    {type:"Kudan", prix:"275"},
+                    {type:"Replacement Diploma", prix:"35"}
+                      ],[
+                    {type:"Shodan", prix:"100"},
+                    {type:"Nidan", prix:"125"},
+                    {type:"Sandan", prix:"150"},
+                    {type:"Yondan", prix:"220"},
+                    {type:"Godan", prix:"325"},
+                    {type:"Rokudan", prix:"575"},
+                    {type:"Shichidan", prix:"700"},
+                    {type:"Hachidan", prix:"950"},
+                    {type:"Replacement Diploma", prix:"35"}
+                     ]];
+        const labelsPromotionDan = ["Dan - PJC", "Dan - IJF", "Dan - National"];
         var data = {};
         var points = {};
         var index = 0;
+        var currentPage =3;
+
+        var instructorsInput = new ArrayInput("input_instructor_wrapper");
+        var pointInput = new ArrayInput("input_point_system_wrapper");
+        var pointInput2 = new ArrayInput("input_point_system_wrapper2");
+        var sportResult = new ArrayInput("input_sport_result_wrapper", 5);
+        var trainer = new ArrayInput("input_trainer_wrapper", 4);
+        var instructorTraining = new ArrayInput("input_instructor_training_wrapper", 4);
+        var katalist = new ArrayInput("input_kata_list_wrapper", 4);
+        var contributionList = new ArrayInput("input_contribution_wrapper", 4);
+
+        $(document).ready( function(){
+
+            setPage(currentPage);
+            alert("test");
+            $(".button-next-page").click(function(){calculatePoints();createTableSummaryPoint();changePageUp();});
+            $(".button-previous-page").click(function(){changePageDown();});
+            instructorsInput.init();
+            pointInput.init();
+            pointInput2.init();
+            sportResult.init();
+            trainer.init();
+
+            createInputPromotionDan();
+            createInputYearActive();
+            createTableSummaryPoint();
+            initData();
+            $("input.date").dcalendarpicker();
+            $("#rule_technical_points").html(rules_technical_points);
+            $("#rules_tournament").html(rules_tournament);
+        } );
 
         function sendMail(){
             $.ajax({
@@ -208,66 +261,6 @@ function validate(){
            data[page]["message"] = message;
            return message.length == 0;
         }
-
-
-
-        var prices =[[
-                    {type:"Shodan", prix:"275"},
-                    {type:"Nidan", prix:"275"},
-                    {type:"Sandan", prix:"275"},
-                    {type:"Yondan", prix:"275"},
-                    {type:"Godan", prix:"275"},
-                    {type:"Rokudan", prix:"275"},
-                    {type:"Shichidan", prix:"275"},
-                    {type:"Hachidan", prix:"275"},
-                    {type:"Kudan", prix:"275"},
-                    {type:"Replacement Diploma", prix:"35"}
-                      ],[
-                    {type:"Shodan", prix:"100"},
-                    {type:"Nidan", prix:"125"},
-                    {type:"Sandan", prix:"150"},
-                    {type:"Yondan", prix:"220"},
-                    {type:"Godan", prix:"325"},
-                    {type:"Rokudan", prix:"575"},
-                    {type:"Shichidan", prix:"700"},
-                    {type:"Hachidan", prix:"950"},
-                    {type:"Replacement Diploma", prix:"35"}
-
-                      ]];
-
-
-        var labelsPromotionDan = ["Dan - PJC", "Dan - IJF", "Dan - National"];
-        var currentPage =3;
-        var instructorsInput = new ArrayInput("input_instructor_wrapper");
-        var pointInput = new ArrayInput("input_point_system_wrapper");
-        var pointInput2 = new ArrayInput("input_point_system_wrapper2");
-        var sportResult = new ArrayInput("input_sport_result_wrapper", 5);
-        var trainer = new ArrayInput("input_trainer_wrapper", 4);
-        var instructorTraining = new ArrayInput("input_instructor_training_wrapper", 4);
-        var katalist = new ArrayInput("input_kata_list_wrapper", 4);
-        var contributionList = new ArrayInput("input_contribution_wrapper", 4);
-
-
-
-        $(document).ready( function(){
-            setPage(currentPage);
-
-            $(".button-next-page").click(function(){calculatePoints();createTableSummaryPoint();changePageUp();});
-            $(".button-previous-page").click(function(){changePageDown();});
-            instructorsInput.init();
-            pointInput.init();
-            pointInput2.init();
-            sportResult.init();
-            trainer.init();
-
-            createInputPromotionDan();
-            createInputYearActive();
-            createTableSummaryPoint();
-            initData();
-            $("input.date").dcalendarpicker();
-            $("#rule_technical_points").html(rules_technical_points);
-            $("#rules_tournament").html(rules_tournament);
-        } );
 
         function createInputPromotionDan(){
           var html = "";
