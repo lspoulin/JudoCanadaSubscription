@@ -168,16 +168,15 @@ function validate(){
           for (let i = 0 ; i <= year - yearMin + 1; i++){
             if (i==0){
               html+="<td>" + label +"</td>";
-              break;
             }
-            let index = getCurrentYear()-(i-1);
-            let point = 0;
-            if(typeof points[type] !== 'undefined' && typeof points[type][index] !== 'undefined'){
-               point =  parseInt(points[type][index]);
-               alert(point);
+            else{
+              let index = getCurrentYear()-(i-1);
+              let point = 0;
+              if(typeof points[type] !== 'undefined' && typeof points[type][index] !== 'undefined'){
+                 point =  parseInt(points[type][index]);
+              }
+              html+="<td>"+point +"</td>";
             }
-            html+="<td>"+point +"</td>";
-
           }
         }
         html +="</tr></table>";
@@ -235,7 +234,7 @@ function validate(){
                      points[index_point_contest][n]+= pts;
 
                      if(participation < 60){
-                         let participation = Math.min(60, participation + 5);
+                         participation = Math.min(60, participation + 5);
                      }
                      points[index_point][n] = participation;
                  }
@@ -497,7 +496,7 @@ function validate(){
                               <br><input class="w3-input" id="grade" name="grade[]" placeholder="Grade" type="text" value="">
                               <br><input class="w3-input" id="kata" name="kata[]" placeholder="Kata/Paires" type="text" value="">
                               <br><input class="w3-input" id="results" name="results[]" placeholder="Resultats" type="text" value="">
-                              <!--<br><input class="w3-input" id="participation" name="participation[]" placeholder="Points de Participation" type="text" value="">-->
+                              <br><input class="w3-input" id="participation" name="participation[]" placeholder="Points de Participation" type="text" value="">
                               <br><input class="w3-input" id="points" name="points[]" placeholder="Points" type="number" value="">
                               </label></p> </div>
                               <button class="add_field_button w3-button">Ajouter</button>
