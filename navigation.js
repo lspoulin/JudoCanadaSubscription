@@ -40,7 +40,7 @@ function changePageDown(){
 
 function changePage(idPage, idNextPage){
     animate(idPage, idNextPage);
-    scrollToDiv("primary");
+    scrollToDiv("idDivPageIndicator");
     addStepSpan();
 }
 
