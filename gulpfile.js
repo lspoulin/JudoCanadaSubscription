@@ -1,9 +1,12 @@
-var gulp = require('gulp'),
+const gulp = require('gulp'),
 concat = require('gulp-concat'),
 inject = require('gulp-inject'),
 transform = require('gulp-transform'),
 watch = require('gulp-watch'),
 browserSync = require('browser-sync'),
+//gutil  = require('gulp-util'),
+//ftp = require( 'vinyl-ftp' ),
+//sftp = require('gulp-sftp'),
 uglify = require('gulp-uglify');
 
 
@@ -36,3 +39,41 @@ gulp.task('browser-sync', function () {
 });
 
 gulp.task('default', ['browser-sync']);
+
+/*gulp.task('deploy', function() {
+    const config = require('./sftp-config.json');
+
+    const globs = [
+        'folder/file',
+        'folder/file',
+        'folder/file',
+    ];
+
+    if (config.type == 'ftp') {
+        //  FTP version
+        const conn = ftp.create( {
+            host:     config.host,
+            user:     config.user,
+            password: config.password,
+            port:     config.port,
+            parallel: 10,
+            reload:   true,
+            debug:    function(d){console.log(d);},
+            log:      gutil.log
+        });
+        return gulp.src( globs, { base: '.', buffer: false } )
+            .pipe( conn.newer( '/dest_folder/' ) ) // only upload newer files
+            .pipe( conn.dest( '/dest_folder/' ) );
+    } else {
+        // SFTP version
+        const conn = sftp({
+                host: config.host,
+                user: config.user,
+                pass: config.password,
+                port: config.port,
+                remotePath: config.remote_path,
+            });
+        return gulp.src(globs, { base: '.', buffer: false } )
+            .pipe(conn);
+    }
+});     */
