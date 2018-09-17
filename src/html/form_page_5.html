@@ -1,0 +1,70 @@
+<!-- cinquieme page du formulaire -->
+                    <div id="idDivTechnicalPoint" class="w3-container" style="display:none">
+                        <div class="w3-card-4 ">
+
+                        <div class="w3-container w3-green">
+                          <h2>Points techniques/non-techniques</h2>
+                        </div>
+                        <div class="w3-container">
+                          <div class="w3-container w3-modal" id="msgBoxPoint2">
+                            <div class="w3-container w3-card-4 w3-modal-content" style="position: sticky;">
+                                <div id="rule_technical_points"></div>
+                                <button onclick="$('#msgBoxPoint2').fadeOut();" class="w3-button w3-grey">Fermer</button>
+                            </div>
+                          </div>
+                                <button onclick="$('#msgBoxPoint2').fadeIn();" class="w3-button w3-grey">Voir les reglements</button>
+                             <div id="input_point_system_wrapper2">
+                                <div class="duplicatable">  <p><label for="name">Points : <span class="w3-text-red">*</span>
+                              <br><select class="w3-input" id="grade_code2" name="grade_code2[]">
+                                  <option value="DA" category="T1">Certification PNCE DA</option>
+                                  <option value="DI" category="T1">Certification PNCE DI</option>
+                                  <option value="CDev" category="T1">Certification PNCE CDev</option>
+                                  <option value="IV" category="T1">Certification PNCE IV</option>
+                                  <option value="V" category="T1">Certification PNCE V</option>
+                                  <option value="DA" category="T2">Entraîneur PNCE DA</option>
+                                  <option value="DI" category="T2">Entraîneur PNCE DI</option>
+                                  <option value="CDev" category="T2">Entraîneur PNCE CDev</option>
+                                  <option value="IV" category="T2">Entraîneur PNCE IV</option>
+                                  <option value="V" category="T2">Entraîneur PNCE V</option>
+                                  <option value="T9" category="T9">Développement de club - Sensei</option>
+                                  <option value="Prov" category="T3">Directeur de Clinique Prov</option>
+                                  <option value="InterProv" category="T3">Directeur de Clinique InterProv</option>
+                                  <option value="Int" category="T3">Directeur de Clinique Int</option>
+                                  <option value="Prov" category="T4"> Participant aux cliniques Prov</option>
+                                  <option value="Nat" category="T4"> Participant aux cliniques Nat</option>
+                                  <option value="Int" category="T4"> Participant aux cliniques Int</option>
+                                  <option value="Prov" category="T5"> Certification d'arbitre Prov</option>
+                                  <option value="Nat" category="T5"> Certification d'arbitre Nat</option>
+                                  <option value="Int" category="T5"> Certification d'arbitre Int</option>
+                                  <option value="Prov" category="T6"> Arbitrage Prov</option>
+                                  <option value="Nat" category="T6"> Arbitrage Nat</option>
+                                  <option value="Int" category="T6"> Arbitrage Int</option>
+                                   <option value="Prov" category="T7"> Certification de kata Prov</option>
+                                  <option value="Nat" category="T7"> Certification de kata Nat</option>
+                                  <option value="Cont" category="T7"> Certification de kata Cont</option>
+                                  <option value="Int" category="T7"> Certification de kata Int</option>
+                                  <option value="Prov" category="T8"> Activité de Kata Prov</option>
+                                  <option value="InterProv" category="T8"> Activité de Kata InterProv</option>
+                                  <option value="Nat" category="T8"> Activité de Kata kata Nat</option>
+                                  <option value="Int" category="T8"> Activité de Kata kata Int</option>
+                                   <option value="Prov" category="N2"> Bénévole de tournoi Prov</option>
+                                  <option value="InterProv" category="N2"> Bénévole de tournoi InterProv</option>
+                                  <option value="Nat" category="N2"> Bénévole de tournoi Nat</option>
+                                  <option value="Int" category="N2"> Bénévole de tournoi Int</option>
+                                  </select>
+                              <br><input class="w3-input date" id="grade_date2" name="grade_date2[]" type="text" placeholder="Date de l'événement" value="" onfocus="$('input.date').dcalendarpicker();">
+                              <br><input class="w3-input" id="grade_contest_name2" name="grade_contest_name2[]" placeholder="Tournoi" type="text" value="">
+                              <br><input class="w3-input" id="grade_contest_location2" name="grade_contest_location2[]" placeholder="Lieu" type="text" value="">
+                              <br><input class="w3-input" id="grade_contest_position2" name="grade_contest_position2[]" placeholder="Position" type="text" value="">
+                              <br><input class="w3-input" id="grade_contest_level2" name="grade_contest_level2[]" placeholder="Niveau" type="text" value="">
+                              </label></p> </div>
+                              <button class="add_field_button w3-button" >Ajouter</button>
+                            </div>
+
+                          <div class="w3-center w3-margin-bottom">
+                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
+                            <button class="w3-button w3-green button-next-page">Prochaine Page</button>
+                          </div>
+                       </div>
+                       </div>
+                   </div> <!-- end of form-->

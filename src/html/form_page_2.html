@@ -1,0 +1,50 @@
+<!-- Deuxieme page du formulaire -->
+                   <div id="idDivJudoCanadaInformation" class="w3-container" style="display:none">
+                        <div class="w3-card-4 ">
+
+                        <div class="w3-container w3-green">
+                          <h2>Informations de Judo</h2>
+                        </div>
+                        <div class="w3-container">
+                       <p><label for="name">Candidat pour : <span class="w3-text-red">*</span> <br>
+                              <select id="selectlevel" name="selectlevel">
+                                  <option value="Shodan" selected="selected">Shodan</option>
+                                  <option value="Nidan">Nidan</option>
+                                  <option value="Sandan">Sandan</option>
+                                  <option value="Yondan">Yondan</option>
+                                  <option value="Godan">Godan</option>
+                                  <option value="Rokudan">Rokudan</option>
+                                  <option value="Shichidan">Shichidan</option>
+                                  <option value="Hachidan">Hachidan</option>
+                                  <option value="Kudan">Kudan</option></select>
+                          </label></p>
+                        <p><input id="judocanada_id" name="judocanada_id" class="w3-input" placeholder="# de membre - Judo Canada" type="text"  value="" pattern="[0-9]*"></p>
+                        <p><input id="dojo" name="dojo" class="w3-input" placeholder="Dojo" type="text" value=""></p>
+                        <p><input id="instructor_name" name="instructor_name" class="w3-input" placeholder="Instructeur - Dan" type="text"  value=""></p>
+                        <p><input id="instructor_email" name="instructor_email" class="w3-input" placeholder="Instructeur email" type="email"  value=""></p>
+                         <p><label for="enrollementdate">Date de début <span class="w3-text-red">*</span>
+                            <br><input class="w3-input date" id="enrollement_date" name="enrollement_date" type="text" value="">
+                          </label></p>
+                         <p><label for="startingdate">Année de début du judo <span class="w3-text-red">*</span>
+                            <br><input id="starting_date" name="starting_date" class="w3-input" type="number" min="1900" max="2020"  value="1990">
+                          </label></p>
+                          <p><label for="activeyear">Années actif en judo <span class="w3-text-red">*</span>
+                          <div id="divYearActive">
+                          </div>
+                          </label></p>
+                          <p>
+                          <label for="startingdate">Instructeurs précédents <span class="w3-text-red">*</span>
+                          <div id="input_instructor_wrapper">
+                                <button class="add_field_button w3-button">Ajouter un instructeur</button>
+                                <div class="duplicatable"><input type="text" name="instructors[]"></div>
+                            </div>
+                          </label></p>
+
+                        <div class="w3-center w3-margin-bottom">
+                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
+                            <button class="w3-button w3-green button-next-page">Prochaine Page</button>
+                          </div>
+                       </div>
+
+                        </div>
+                   </div> <!-- end of form-->

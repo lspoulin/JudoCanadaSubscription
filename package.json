@@ -1,0 +1,26 @@
+{
+  "name": "blackbelt-registration-form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "page-black-belt-subscription.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lspoulin/JudoCanadaSubscription.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lspoulin/JudoCanadaSubscription/issues"
+  },
+  "homepage": "https://github.com/lspoulin/JudoCanadaSubscription#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-inject": "^4.3.2",
+    "gulp-transform": "^3.0.5",
+    "gulp-uglify": "^3.0.1"
+  }
+}

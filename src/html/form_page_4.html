@@ -1,0 +1,45 @@
+<!-- quatrieme page du formulaire -->
+                    <div id="idDivGrade" class="w3-container w3-margin-left w3-card-4" style="display:none">
+
+                        <div class="w3-container w3-green">
+                          <h2>Point en tournois</h2>
+                        </div>
+                        <div class="w3-container">
+                          <div class="w3-container w3-modal" id="msgBoxPoint1">
+                            <div class="w3-container w3-card-4 w3-modal-content" style="position: sticky;top: 50%;left: 50%; transform: translate(-50%, -50%);">
+                            <div id="rules_tournament"></div>
+                            <button onclick="$('#msgBoxPoint1').fadeOut();" class="w3-button w3-grey">Fermer</button>
+                            </div>
+                          </div>
+                                <button onclick="$('#msgBoxPoint1').fadeIn();" class="w3-button w3-grey">Voir les reglements</button>
+                            </div>
+
+                          <div id="input_point_system_wrapper">
+                                <div class="duplicatable"> <p><label for="startingdate">Système de pointage : <span class="w3-text-red">*</span>
+                              <br><input class="w3-input date" id="grade_date" name="grade_date[]" type="text" value="" onfocus="$('input.date').dcalendarpicker();" placeholder="Date du tournois">
+                              <p><select name="grade_type[]" id="grade_type">
+                                  <option value="shiai">Shiai</option>
+                                  <option value="kata">Kata</option>
+                                  </select>
+                              </p>
+                              <br><input class="w3-input" id="contest_location" name="contest_location[]" placeholder="Tournoi et Lieu" type="text" value="">
+                              <br><input class="w3-input" id="adversary" name="adversary[]" placeholder="Adversaire/Partenaire (Uke/Tori)" type="text" value="">
+                              <br><input class="w3-input" id="grade" name="grade[]" placeholder="Grade" type="text" value="">
+                              <br><input class="w3-input" id="kata" name="kata[]" placeholder="Kata/Paires" type="text" value="">
+                              <br><input class="w3-input" id="results" name="results[]" placeholder="Resultats" type="text" value="">
+                              <br><input class="w3-input" id="participation" name="participation[]" placeholder="Points de Participation" type="text" value="">
+                              <br><input class="w3-input" id="points" name="points[]" placeholder="Points" type="number" value="">
+                              </label></p> </div>
+                              <button class="add_field_button w3-button">Ajouter</button>
+                            </div>
+
+
+
+
+                          <div class="w3-center w3-margin-bottom">
+                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
+                            <button class="w3-button w3-green button-next-page">Prochaine Page</button>
+                          </div>
+                       </div>
+
+                   </div> <!-- end of form-->

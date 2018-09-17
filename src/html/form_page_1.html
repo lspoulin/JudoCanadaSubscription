@@ -1,0 +1,54 @@
+<!-- premiere page du formulaire -->
+                    <div id="idDivFormPersonalInformations" class="w3-container" style="display:none">
+                        <div class="w3-card-4 ">
+
+                        <div class="w3-container w3-green">
+                          <h2>Informations Personnelles</h2>
+                        </div>
+                        <div class="w3-container" style="margin-top:40px;margin-bottom:40px;margin-left:40px;margin-right:40px;">
+                          <p><label for="name">Votre nom : <span class="w3-text-red">*</span>
+                              <br><table><tr><td><input class="w3-input" id="firstname" name="firstname" placeholder="Pr&eacute;nom" type="text"  value="" required="required"> </td>
+                              <td><input class="w3-input" id="lastname" name="lastname" placeholder="Nom" type="text" value="" required="required">  </td></tr></table>
+                          </label></p>
+
+                          <p><label for="adress">Votre adresse : <span class="w3-text-red">*</span>
+                            <table><tr><td colspan="2">
+                              <br><input class="w3-input" id="adress1" name="adress1" placeholder="Adresse" type="text"  value=""></td></tr>
+                              <tr><td colspan="2">
+                              <br><input class="w3-input" id="adress2" name="adress2" placeholder="Adresse line 2" type="text"  value=""></td></tr>
+                              <tr><td>
+                              <br><input class="w3-input" id="city" name="city" placeholder="Ville" type="text" value=""> </td><td>
+                              <br><input class="w3-input" id="state" name="state" placeholder="Etat" type="text"  value=""> </td></tr><tr><td>
+                              <br><input class="w3-input" id="zipcode" name="zipcode" placeholder="Code postal" type="text"  value=""> </td><td>
+
+                              <br><label for="adress">Pays:<br><div id="idSelectCountry"></div>
+                              </label>
+                               </td></tr>
+                              </table>
+                          </label></p>
+
+                          <p><label for="email">Contact : <span class="w3-text-red">*</span>
+                            <br><input class="w3-input" id="email" name="email" placeholder="E-mail:" type="email"  value="">
+                          <input id="phone" name="phone" placeholder="T&eacute;l&eacute;phone" type="tel" value=""></label></p>
+
+                          <p><label for="birthdate">Date de naissance <span class="w3-text-red">*</span>
+                            <br><input class="w3-input date" id="birthdate" name="birthdate" type="text" value="">
+                          </label></p>
+
+                          <label for="status">Statut <span class="w3-text-red">*</span><br>
+                              <input class="w3-input" type="radio" name="status" value="Citizen" checked>Citoyen<br>
+                              <input class="w3-input" type="radio" name="status" value="Resident">Résident Permanent<br>
+                              <input class="w3-input" type="radio" name="status" value="Other" onchange="">Autre   <div id="idDivOtherStatus" class="w3-hide"><input id="otherstatus" name="otherstatus" placeholder="Autres status" type="text" value=""></div>
+                          </label>
+
+
+                          <label for="gender">Statut <span class="w3-text-red">*</span><br>
+                              <input class="w3-input" type="radio" name="gender" value="male">Homme<br>
+                              <input class="w3-input" type="radio" name="gender" value="female">Femme<br>
+                           </label>
+                           <div class="w3-center w3-margin-bottom">
+                                <button class="w3-button w3-green button-next-page">Prochaine Page</button>
+                           </div>
+                        </div>
+                        </div>
+                   </div> <!-- end of form-->

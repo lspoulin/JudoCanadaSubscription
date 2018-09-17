@@ -33,266 +33,12 @@ function validate(){
 ?>
 
 <?php get_header(); ?>
-  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri().'/w3.css';?>">
-  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri().'/dcalendar.picker.css';?>">
-  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri().'/navigation.css';?>">
-  <script src="<?php echo get_stylesheet_directory_uri().'/jquery-3.3.1.min.js';?>"></script>
-  <script src="<?php echo get_stylesheet_directory_uri().'/object.js';?>"></script>
-  <script src="<?php echo get_stylesheet_directory_uri().'/navigation.js';?>"></script>
-  <script src="<?php echo get_stylesheet_directory_uri().'/judo_info.js';?>"></script>
-  <script src="<?php echo get_stylesheet_directory_uri().'/util.js';?>"></script>
-  <script src="<?php echo get_stylesheet_directory_uri().'/country.js';?>"></script>
-  <script src="<?php echo get_stylesheet_directory_uri().'/dcalendar.picker.js';?>"></script>
-
-    <script>
-    var data = {};
-    var points = {};
-    var points = {};
-    var index = 0;
-    var currentPage = 0;
-
-    var instructorsInput = new ArrayInput("input_instructor_wrapper");
-    var pointInput = new ArrayInput("input_point_system_wrapper");
-    var pointInput2 = new ArrayInput("input_point_system_wrapper2");
-    var sportResult = new ArrayInput("input_sport_result_wrapper", 5);
-    var trainer = new ArrayInput("input_trainer_wrapper", 4);
-    var instructorTraining = new ArrayInput("input_instructor_training_wrapper", 4);
-    var katalist = new ArrayInput("input_kata_list_wrapper", 4);
-    var contributionList = new ArrayInput("input_contribution_wrapper", 4);
-
-    $(document).ready( function(){
-        setPage(currentPage);
-        $(".button-next-page").click(function(){calculatePoints();createTableSummaryPoint();changePageUp();});
-        $(".button-previous-page").click(function(){changePageDown();});
-        instructorsInput.init();
-        pointInput.init();
-        pointInput2.init();
-        sportResult.init();
-        trainer.init();
-
-        createInputPromotionDan();
-        createInputYearActive();
-        createTableSummaryPoint();
-        initData();
-        $("input.date").dcalendarpicker();
-        $("#rule_technical_points").html(rules_technical_points);
-        $("#rules_tournament").html(rules_tournament);
-        $("#idSelectCountry").html(COUNTRY_SELECT_HTML);
-
-    } );
-
-    function initData(){
-      for (index = 0; index < pages.length ; index++){
-        data[pages[index]] = {};
-        $("#"+pages[index]+" :input").each(function( ) {
-          let member = $(this).attr('name');
-            data[pages[index]][member] = "";
-        });
-      }
-    }
-
-    function collectData(page){
-      $("#"+page+" :input").each(function( ) {
-          let member = $(this).attr('name');
-          let value = $(this).val();
-          if(value != null && value.length!=0){
-            data[page][member] = value;
-          }
-        });
-    }
-
-    function validate(page){
-      return true;
-      let message = "";
-       $("#"+page+" :input").each(function( ) {
-          if($(this).attr('required') == "required"){
-            let member = $(this).attr('placeholder') || $(this).attr('name');
-            let value = $(this).val();
-            if(value == null || value.length==0){
-              message += member + " cannot be empty.<br>";
-            }
-          }
-        });
-       data[page]["message"] = message;
-       return message.length == 0;
-    }
-
-    function createInputPromotionDan(){
-      let html = "";
-        for (let i = 1; i <= 9; i++)
-          for (let j=0; j < 3 ; j++)
-            html += "<input type='text' class='w3-input date' placeholder='"+i + ((i==1)?"er ":"ieme ") + labelsPromotionDan[j]+"'/>";
-
-        $("#idDivPromotionDanInput").html(html);
-        $("input.date").dcalendarpicker();
-    }
-
-    function createInputYearActive(){
-      let html = "<table id='idTablePoints'><tr><th>&nbsp;</th>";
-
-        let year = getCurrentYear();
-        for (let i = year ; i >= yearMin; i--){
-          html+="<th>" + i +"</th>";
-        }
-        for (let i = 0 ; i <= year - yearMin + 1; i++){
-            if (i==0){
-              html+="<tr><td>Niveau</td>";
-            }
-            else{
-              let index = "select"+(getCurrentYear()-(i-1));
-              html+="<td><select id=\""+index+"\" name=\""+index+"\" class=\"w3-input\"><option value=\"\" selected=\"selected\">";
-
-              for(let key in pointYearActive) {
-
-                html+="<option value=\""+key+"\">"+key+"</option>";
-              }
-              html+="</select></td>";
-            }
-          }
-         html+="</tr></table>";
-        $("#divYearActive").html(html);
-    }
-
-    function createTableSummaryPoint(){
-        let html = "<table id='idTablePoints'><tr><th>&nbsp;</th>";
-        let year = getCurrentYear();
-        for (let i = year ; i >= yearMin; i--){
-          html+="<th>" + i +"</th>";
-        }
-
-        for(let j= 0 ; j < labels.length ; j++){
-          html+="</tr><tr>";
-          let label =  labels[j].label;
-          let type = labels[j].type;
-
-          for (let i = 0 ; i <= year - yearMin + 1; i++){
-            if (i==0){
-              html+="<td>" + label +"</td>";
-            }
-            else{
-              let index = getCurrentYear()-(i-1);
-              let point = 0;
-              if(typeof points[type] !== 'undefined' && typeof points[type][index] !== 'undefined'){
-                 point =  parseInt(points[type][index]);
-              }
-              html+="<td>"+point +"</td>";
-            }
-          }
-        }
-        html +="</tr></table>";
-
-        $('#idPointTableSummary').html(html);
-        $('#idTablePoints tr:odd').addClass("w3-grey");
-    }
-
-    function calculatePoints(){
-        calculateYearsInJudo();
-        calculateParticipationKata();
-        calculatePointTechniques();
-        calculatePointNonTechniques();
-        calculGrandTotal();
-    }
-
-    function  calculateYearsInJudo(){
-        points["year_active"] = [];
-        let year = getCurrentYear();
-        for (let i = year;i >= yearMin; i--) {
-           let index = "select"+i;
-            let key = $("#"+index).val() || "";
-            points["year_active"][i] = pointYearActive[key];
-        }
-    }
-
-    function calculateParticipationKata(){
-        points["participation_kata"] = [];
-        points["participation_shiai"] = [];
-        points["tournois_shiai"] = [];
-        points["tournois_kata"] = [];
-        let contestdates = $( "input[name='grade_date[]']" );
-        let pointscontest = $( "input[name='points[]']" );
-        let gradetypes = $( "select[name='grade_type[]']" );
-
-        contestdates.each(function(index, value){
-            let val = value.value;
-            if(val.length>0){
-                let d = new Date(val);
-                let n = d.getFullYear();
-                let suffix = (gradetypes.get(index).value || "shiai");
-                let pts = parseInt(pointscontest.get(index).value);
-
-                let index_point = "participation_"+ suffix;
-                let index_point_contest = "tournois_"+ suffix;
-
-                if(suffix.length>0) {
-                    if (index == 0 ){
-                        points["participation_kata"][n] =points["participation_kata"][n] || 0;
-                        points["participation_shiai"][n] = points["participation_shiai"][n] || 0;
-                        points["tournois_kata"][n] = points["tournois_kata"][n] || 0;
-                        points["tournois_shiai"][n] = points["tournois_shiai"][n] || 0;
-                    }
-                     let participation = points[index_point][n];
-                     points[index_point_contest][n]+= pts;
-
-                     if(participation < 60){
-                         participation = Math.min(60, participation + 5);
-                     }
-                     points[index_point][n] = participation;
-                 }
-            }
-         });
-    }
-
-    function calculatePointTechniques(){
-        for (let i in pointTechniques) {
-            points[i] = [];
-        }
-        let contestdates = $( "input[name='grade_date2[]']" );
-        let gradeCodes = $( "select[name='grade_code2[]']" );
-
-        contestdates.each(function(index, value){
-             let val = value.value;
-             if(val.length>0){
-                let d = new Date(val);
-                let n = d.getFullYear();
-
-                 let code =  $( "select[name='grade_code2[]'] option:selected" ).attr("value");
-                 let categorie =  $( "select[name='grade_code2[]'] option:selected" ).attr("category");
-
-                 if(code.length>0 && categorie.length>0){
-                     if (index == 0 ){
-                         for (let i in pointTechniques) {
-                            points[i][n] = points[i][n] || 0;
-                         }
-                         points[categorie][n] += pointTechniques[categorie][code];
-                         points[categorie][n] = Math.min(points[categorie][n], pointTechniques[categorie]['MAX']) ;
-                    }
-                 }
-             }
-        });
-    }
-
-    function calculatePointNonTechniques(){
-
-    }
-
-    function calculGrandTotal(){
-        let total = 0;
-        let tc_total = 0;
-
-        for(let i in points){
-
-            for (let j in points[i]) {
-                if (i!= 'N2' || i!='year_active'){
-                    tc_total += parseInt(points[i][j]);
-                }
-                 total += parseInt(points[i][j]);
-            }
-        }
-        $("#total_tc_points").text(tc_total);
-        $("#total_points").text(total);
-    }
-
-    </script>
+  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri().'/bin/style/w3.css';?>">
+  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri().'/bin/style/dcalendar.picker.css';?>">
+  <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri().'/bin/style/navigation.css';?>">
+  <script src="<?php echo get_stylesheet_directory_uri().'/bin/javascript/jquery-3.3.1.min.js';?>"></script>
+  <script src="<?php echo get_stylesheet_directory_uri().'/bin/javascript/lib.js';?>"></script>
+  <script src="<?php echo get_stylesheet_directory_uri().'/bin/javascript/dcalendar.picker.js';?>"></script>
 
     <div id="primary" class="site-content">
         <div id="content" role="main">
@@ -301,7 +47,7 @@ function validate(){
             </div>
 
           <div id="idDivPageIndicator" style="text-align:center;margin-top:40px;margin-bottom:40px;margin-left:40px;margin-right:40px;"></div>
-
+                    <!-- inject:form_pages:html -->
                     <!-- premiere page du formulaire -->
                     <div id="idDivFormPersonalInformations" class="w3-container" style="display:none">
                         <div class="w3-card-4 ">
@@ -341,7 +87,7 @@ function validate(){
 
                           <label for="status">Statut <span class="w3-text-red">*</span><br>
                               <input class="w3-input" type="radio" name="status" value="Citizen" checked>Citoyen<br>
-                              <input class="w3-input" type="radio" name="status" value="Resident">Résident Permanent<br>
+                              <input class="w3-input" type="radio" name="status" value="Resident">R�sident Permanent<br>
                               <input class="w3-input" type="radio" name="status" value="Other" onchange="">Autre   <div id="idDivOtherStatus" class="w3-hide"><input id="otherstatus" name="otherstatus" placeholder="Autres status" type="text" value=""></div>
                           </label>
 
@@ -356,9 +102,7 @@ function validate(){
                         </div>
                         </div>
                    </div> <!-- end of form-->
-
-
-                   <!-- Deuxieme page du formulaire -->
+                    <!-- Deuxieme page du formulaire -->
                    <div id="idDivJudoCanadaInformation" class="w3-container" style="display:none">
                         <div class="w3-card-4 ">
 
@@ -382,18 +126,18 @@ function validate(){
                         <p><input id="dojo" name="dojo" class="w3-input" placeholder="Dojo" type="text" value=""></p>
                         <p><input id="instructor_name" name="instructor_name" class="w3-input" placeholder="Instructeur - Dan" type="text"  value=""></p>
                         <p><input id="instructor_email" name="instructor_email" class="w3-input" placeholder="Instructeur email" type="email"  value=""></p>
-                         <p><label for="enrollementdate">Date de début <span class="w3-text-red">*</span>
+                         <p><label for="enrollementdate">Date de d�but <span class="w3-text-red">*</span>
                             <br><input class="w3-input date" id="enrollement_date" name="enrollement_date" type="text" value="">
                           </label></p>
-                         <p><label for="startingdate">Année de début du judo <span class="w3-text-red">*</span>
+                         <p><label for="startingdate">Ann�e de d�but du judo <span class="w3-text-red">*</span>
                             <br><input id="starting_date" name="starting_date" class="w3-input" type="number" min="1900" max="2020"  value="1990">
                           </label></p>
-                          <p><label for="activeyear">Années actif en judo <span class="w3-text-red">*</span>
+                          <p><label for="activeyear">Ann�es actif en judo <span class="w3-text-red">*</span>
                           <div id="divYearActive">
                           </div>
                           </label></p>
                           <p>
-                          <label for="startingdate">Instructeurs précédents <span class="w3-text-red">*</span>
+                          <label for="startingdate">Instructeurs pr�c�dents <span class="w3-text-red">*</span>
                           <div id="input_instructor_wrapper">
                                 <button class="add_field_button w3-button">Ajouter un instructeur</button>
                                 <div class="duplicatable"><input type="text" name="instructors[]"></div>
@@ -401,15 +145,13 @@ function validate(){
                           </label></p>
 
                         <div class="w3-center w3-margin-bottom">
-                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
+                            <button class="w3-button w3-grey button-previous-page">Page pr�c�dante</button>
                             <button class="w3-button w3-green button-next-page">Prochaine Page</button>
                           </div>
                        </div>
 
                         </div>
                    </div> <!-- end of form-->
-
-
                     <!-- troisieme page du formulaire -->
                     <div id="idDivCertification" class="w3-container" style="display:none">
                         <div class="w3-card-4 ">
@@ -459,14 +201,12 @@ function validate(){
                        </label></p>
 
                           <div class="w3-center w3-margin-bottom">
-                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
+                            <button class="w3-button w3-grey button-previous-page">Page pr�c�dante</button>
                             <button class="w3-button w3-green button-next-page">Prochaine Page</button>
                           </div>
                        </div>
                        </div>
                    </div> <!-- end of form-->
-
-
                     <!-- quatrieme page du formulaire -->
                     <div id="idDivGrade" class="w3-container w3-margin-left w3-card-4" style="display:none">
 
@@ -484,7 +224,7 @@ function validate(){
                             </div>
 
                           <div id="input_point_system_wrapper">
-                                <div class="duplicatable"> <p><label for="startingdate">Système de pointage : <span class="w3-text-red">*</span>
+                                <div class="duplicatable"> <p><label for="startingdate">Syst�me de pointage : <span class="w3-text-red">*</span>
                               <br><input class="w3-input date" id="grade_date" name="grade_date[]" type="text" value="" onfocus="$('input.date').dcalendarpicker();" placeholder="Date du tournois">
                               <p><select name="grade_type[]" id="grade_type">
                                   <option value="shiai">Shiai</option>
@@ -506,13 +246,12 @@ function validate(){
 
 
                           <div class="w3-center w3-margin-bottom">
-                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
+                            <button class="w3-button w3-grey button-previous-page">Page pr�c�dante</button>
                             <button class="w3-button w3-green button-next-page">Prochaine Page</button>
                           </div>
                        </div>
 
                    </div> <!-- end of form-->
-
                     <!-- cinquieme page du formulaire -->
                     <div id="idDivTechnicalPoint" class="w3-container" style="display:none">
                         <div class="w3-card-4 ">
@@ -536,12 +275,12 @@ function validate(){
                                   <option value="CDev" category="T1">Certification PNCE CDev</option>
                                   <option value="IV" category="T1">Certification PNCE IV</option>
                                   <option value="V" category="T1">Certification PNCE V</option>
-                                  <option value="DA" category="T2">Entraîneur PNCE DA</option>
-                                  <option value="DI" category="T2">Entraîneur PNCE DI</option>
-                                  <option value="CDev" category="T2">Entraîneur PNCE CDev</option>
-                                  <option value="IV" category="T2">Entraîneur PNCE IV</option>
-                                  <option value="V" category="T2">Entraîneur PNCE V</option>
-                                  <option value="T9" category="T9">Développement de club - Sensei</option>
+                                  <option value="DA" category="T2">Entra�neur PNCE DA</option>
+                                  <option value="DI" category="T2">Entra�neur PNCE DI</option>
+                                  <option value="CDev" category="T2">Entra�neur PNCE CDev</option>
+                                  <option value="IV" category="T2">Entra�neur PNCE IV</option>
+                                  <option value="V" category="T2">Entra�neur PNCE V</option>
+                                  <option value="T9" category="T9">D�veloppement de club - Sensei</option>
                                   <option value="Prov" category="T3">Directeur de Clinique Prov</option>
                                   <option value="InterProv" category="T3">Directeur de Clinique InterProv</option>
                                   <option value="Int" category="T3">Directeur de Clinique Int</option>
@@ -558,16 +297,16 @@ function validate(){
                                   <option value="Nat" category="T7"> Certification de kata Nat</option>
                                   <option value="Cont" category="T7"> Certification de kata Cont</option>
                                   <option value="Int" category="T7"> Certification de kata Int</option>
-                                  <option value="Prov" category="T8"> Activité de Kata Prov</option>
-                                  <option value="InterProv" category="T8"> Activité de Kata InterProv</option>
-                                  <option value="Nat" category="T8"> Activité de Kata kata Nat</option>
-                                  <option value="Int" category="T8"> Activité de Kata kata Int</option>
-                                   <option value="Prov" category="N2"> Bénévole de tournoi Prov</option>
-                                  <option value="InterProv" category="N2"> Bénévole de tournoi InterProv</option>
-                                  <option value="Nat" category="N2"> Bénévole de tournoi Nat</option>
-                                  <option value="Int" category="N2"> Bénévole de tournoi Int</option>
+                                  <option value="Prov" category="T8"> Activit� de Kata Prov</option>
+                                  <option value="InterProv" category="T8"> Activit� de Kata InterProv</option>
+                                  <option value="Nat" category="T8"> Activit� de Kata kata Nat</option>
+                                  <option value="Int" category="T8"> Activit� de Kata kata Int</option>
+                                   <option value="Prov" category="N2"> B�n�vole de tournoi Prov</option>
+                                  <option value="InterProv" category="N2"> B�n�vole de tournoi InterProv</option>
+                                  <option value="Nat" category="N2"> B�n�vole de tournoi Nat</option>
+                                  <option value="Int" category="N2"> B�n�vole de tournoi Int</option>
                                   </select>
-                              <br><input class="w3-input date" id="grade_date2" name="grade_date2[]" type="text" placeholder="Date de l'événement" value="" onfocus="$('input.date').dcalendarpicker();">
+                              <br><input class="w3-input date" id="grade_date2" name="grade_date2[]" type="text" placeholder="Date de l'�v�nement" value="" onfocus="$('input.date').dcalendarpicker();">
                               <br><input class="w3-input" id="grade_contest_name2" name="grade_contest_name2[]" placeholder="Tournoi" type="text" value="">
                               <br><input class="w3-input" id="grade_contest_location2" name="grade_contest_location2[]" placeholder="Lieu" type="text" value="">
                               <br><input class="w3-input" id="grade_contest_position2" name="grade_contest_position2[]" placeholder="Position" type="text" value="">
@@ -577,60 +316,11 @@ function validate(){
                             </div>
 
                           <div class="w3-center w3-margin-bottom">
-                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
+                            <button class="w3-button w3-grey button-previous-page">Page pr�c�dante</button>
                             <button class="w3-button w3-green button-next-page">Prochaine Page</button>
                           </div>
                        </div>
                        </div>
-                   </div> <!-- end of form-->
-
-                   <div id="idDivFinalPoint" class="w3-container w3-margin-left w3-card-4" style="display:none">
-
-                        <div class="w3-container w3-green">
-                          <h2>Sommaire des points</h2>
-                        </div>
-                        <div class="w3-container">
-                          <div id="idPointTableSummary">
-                          </div>
-                          <p><label for="name">Si vous avez d'autres points à ajouter, veuillez les énumérer ci-dessous<span class="w3-text-red">*</span> </label></p><br>
-                          <textarea rows="4" cols="50" name="additional_points">
-
-                          </textarea>
-                          <p>Total Technical/Competitive Points : <span id="total_tc_points"></span></p>
-                           <p>Grand Total : <span id="total_points"></span></p>
-
-
-                          <div class="w3-center w3-margin-bottom">
-                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
-                            <button class="w3-button w3-green button-next-page">Prochaine Page</button>
-                          </div>
-                       </div>
-
-                   </div> <!-- end of form-->
-
-                   <div id="idDivIJFOnly" class="w3-container w3-margin-left w3-card-4" style="display:none">
-
-                        <div class="w3-container w3-green">
-                          <h2>IJF SEULEMENT</h2>
-                        </div>
-                        <div class="w3-container">
-                          <div id="idPointTableSummary">
-                          </div>
-                          <input type="text" placeholder="Certificat de Dan PJC demandé" />
-                          <input type="text" placeholder="Certificat de Dan IJF demandé" />
-                          <p><label>Date de promotion des dan
-                                <div id = "idDivPromotionDanInput">
-                          </div>
-                            </label></p>
-
-
-                          <div class="w3-center w3-margin-bottom">
-                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
-                            <button class="w3-button w3-green button-next-page">Prochaine Page</button>
-
-                          </div>
-                       </div>
-
                    </div> <!-- end of form-->
                     <div id="idDivFinalPoint" class="w3-container w3-margin-left w3-card-4" style="display:none">
 
@@ -640,7 +330,54 @@ function validate(){
                         <div class="w3-container">
                           <div id="idPointTableSummary">
                           </div>
-                          <p><label for="name">Si vous avez d'autres points à ajouter, veuillez les énumérer ci-dessous<span class="w3-text-red">*</span> <br>
+                          <p><label for="name">Si vous avez d'autres points � ajouter, veuillez les �num�rer ci-dessous<span class="w3-text-red">*</span> </label></p><br>
+                          <textarea rows="4" cols="50" name="additional_points">
+
+                          </textarea>
+                          <p>Total Technical/Competitive Points : <span id="total_tc_points"></span></p>
+                           <p>Grand Total : <span id="total_points"></span></p>
+
+
+                          <div class="w3-center w3-margin-bottom">
+                            <button class="w3-button w3-grey button-previous-page">Page pr�c�dante</button>
+                            <button class="w3-button w3-green button-next-page">Prochaine Page</button>
+                          </div>
+                       </div>
+
+                   </div> <!-- end of form-->
+                    <div id="idDivIJFOnly" class="w3-container w3-margin-left w3-card-4" style="display:none">
+
+                        <div class="w3-container w3-green">
+                          <h2>IJF SEULEMENT</h2>
+                        </div>
+                        <div class="w3-container">
+                          <div id="idPointTableSummary">
+                          </div>
+                          <input type="text" placeholder="Certificat de Dan PJC demand�" />
+                          <input type="text" placeholder="Certificat de Dan IJF demand�" />
+                          <p><label>Date de promotion des dan
+                                <div id = "idDivPromotionDanInput">
+                          </div>
+                            </label></p>
+
+
+                          <div class="w3-center w3-margin-bottom">
+                            <button class="w3-button w3-grey button-previous-page">Page pr�c�dante</button>
+                            <button class="w3-button w3-green button-next-page">Prochaine Page</button>
+
+                          </div>
+                       </div>
+
+                   </div> <!-- end of form-->
+                     <div id="idDivFinalPoint" class="w3-container w3-margin-left w3-card-4" style="display:none">
+
+                        <div class="w3-container w3-green">
+                          <h2>Sommaire des points</h2>
+                        </div>
+                        <div class="w3-container">
+                          <div id="idPointTableSummary">
+                          </div>
+                          <p><label for="name">Si vous avez d'autres points � ajouter, veuillez les �num�rer ci-dessous<span class="w3-text-red">*</span> <br>
                           <textarea rows="4" cols="50">
 
                           </textarea>
@@ -649,14 +386,13 @@ function validate(){
 
 
                           <div class="w3-center w3-margin-bottom">
-                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
+                            <button class="w3-button w3-grey button-previous-page">Page pr�c�dante</button>
                             <button class="w3-button w3-green button-next-page">Prochaine Page</button>
                           </div>
                        </div>
 
                    </div> <!-- end of form-->
-
-                   <div id="idDivPayForm" class="w3-container w3-margin-left w3-card-4" style="display:none">
+                     <div id="idDivPayForm" class="w3-container w3-margin-left w3-card-4" style="display:none">
 
                         <div class="w3-container w3-green">
                           <h2>Payments</h2>
@@ -669,15 +405,14 @@ function validate(){
 
 
                           <div class="w3-center w3-margin-bottom">
-                            <button class="w3-button w3-grey button-previous-page">Page précédante</button>
+                            <button class="w3-button w3-grey button-previous-page">Page pr�c�dante</button>
                             <button class="w3-button w3-green button-next-page">Prochaine Page</button>
 
                           </div>
                        </div>
 
                    </div> <!-- end of form-->
-
-
+                    <!-- endinject -->
             <?php while ( have_posts() ) : the_post(); ?>
 
                     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
